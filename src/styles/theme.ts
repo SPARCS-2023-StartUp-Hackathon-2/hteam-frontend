@@ -10,9 +10,7 @@ export const theme: MantineThemeOverride = {
     },
     body: {
       ...theme.fn.fontStyles(),
-      margin: "0 auto",
-      maxWidth: theme.breakpoints.xs,
-      minHeight: "100vh",
+      margin: 0,
     },
   }),
 };
