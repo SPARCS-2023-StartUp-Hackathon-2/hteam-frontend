@@ -1,17 +1,16 @@
 import { Container, Flex } from '@mantine/core';
-import InputInterviewBasicInfo from 'components/pages/interview/configure/InputInterviewInfo';
-import InputInterviewInfo from 'components/pages/interview/configure/InputInterviewInfo';
-import InputInterviewSchedule from 'components/pages/interview/configure/InputInterviewSchedule';
-import SelectInterviewType from 'components/pages/interview/configure/SelectInterviewType';
+import InputInterviewInfoSection from 'components/pages/interview/configure/sections/InputInterviewInfoSection';
+import InputInterviewScheduleSection from 'components/pages/interview/configure/sections/InputInterviewScheduleSection';
+import SelectInterviewTypeSection from 'components/pages/interview/configure/sections/SelectInterviewTypeSection';
 import React from 'react';
 
 function ConfigurePage() {
   return (
     <Container size="lg">
       <Flex gap="32px" direction="column">
-        <SelectInterviewType />
-        <InputInterviewInfo />
-        <InputInterviewSchedule />
+        <SelectInterviewTypeSection />
+        <InputInterviewInfoSection />
+        <InputInterviewScheduleSection />
       </Flex>
     </Container>
   );
