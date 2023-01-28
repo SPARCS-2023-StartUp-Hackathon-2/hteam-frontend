@@ -1,16 +1,16 @@
 import { Container } from "@mantine/core";
-import FormSectionBlockAside from "components/pages/forms/FormSectionBlockAside";
+import FormSectionBlockList from "components/pages/forms/FormSectionBlockList";
 import FormSectionEditorView from "components/pages/forms/FormSectionEditorView";
 import FormSectionSettingAside from "components/pages/forms/FormSectionSettingAside";
 
-function MakeFormPage() {
+function FormEditorPage() {
   return (
     <Container size="lg" sx={{ display: "flex" }}>
-      <FormSectionBlockAside />
+      <FormSectionBlockList />
       <FormSectionEditorView />
       <FormSectionSettingAside />
     </Container>
   );
 }
 
-export default MakeFormPage;
+export default FormEditorPage;
