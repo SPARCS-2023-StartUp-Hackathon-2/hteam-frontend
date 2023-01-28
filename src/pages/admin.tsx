@@ -76,7 +76,9 @@ function AdminPage() {
             모집 완료!
           </Text>
         </Flex>
-        <ApplicantsSection />
+        <Flex sx={{ marginLeft: 52 }}>
+          <ApplicantsSection />
+        </Flex>
       </Flex>
     </Container>
   );
