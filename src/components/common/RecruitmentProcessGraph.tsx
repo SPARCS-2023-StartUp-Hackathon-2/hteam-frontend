@@ -1,4 +1,4 @@
-export type RecruitmentState = "PREPARING" | "FORM" | "INTERVIEW" | "COMPLETE";
+import { RecruitmentState } from "types/api";
 
 interface Props {
   currentState: RecruitmentState;

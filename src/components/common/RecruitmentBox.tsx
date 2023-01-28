@@ -1,14 +1,16 @@
 import { Button, Flex, Text } from "@mantine/core";
 import ProcessGraph from "components/common/RecruitmentProcessGraph";
+import Link from "next/link";
 
 interface Props {
+  id: number;
   title: string;
   startAt: string;
   endAt: string;
   state: string;
 }
 
-function RecruitmentBox({ title, startAt, endAt, state }: Props) {
+function RecruitmentBox({ id, title, startAt, endAt, state }: Props) {
   return (
     <Flex
       sx={(theme) => ({
@@ -28,13 +30,16 @@ function RecruitmentBox({ title, startAt, endAt, state }: Props) {
             {startAt} ~ {endAt}
           </Text>
         </Flex>
-        <Button
-          variant="outline"
-          color="gray.1"
-          sx={(theme) => ({ color: theme.colors.gray[9], width: "fit-content" })}
-        >
-          바로가기
-        </Button>
+        <Link href={`/recruitments/${id}`} passHref legacyBehavior>
+          <Button
+            component="a"
+            variant="outline"
+            color="gray.1"
+            sx={(theme) => ({ color: theme.colors.gray[9], width: "fit-content" })}
+          >
+            바로가기
+          </Button>
+        </Link>
       </Flex>
 
       <ProcessGraph currentState="PREPARING" />
