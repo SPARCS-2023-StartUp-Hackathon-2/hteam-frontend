@@ -17,7 +17,7 @@ export const theme: MantineThemeOverride = {
   colors: {
     gray: [
       '#FOFOFO',
-      '#FFFF00',
+      '#D7DBDC',
       '#C4CBCD',
       '#A6B2B9',
       '#737D81',
