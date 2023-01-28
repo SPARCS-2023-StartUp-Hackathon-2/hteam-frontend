@@ -12,7 +12,8 @@ interface Props extends ComponentProps<typeof Flex> {
 
 function FormSection({ formSection, ...props }: Props) {
   const [formSectionList, setFormSectionList] = useRecoilState(formSectionListState);
-  const currentFormSection = formSectionList.find((item) => item.id === formSection.id)!;
+  const currentFormSection =
+    formSectionList.find((item) => item.id === formSection.id) || formSection;
 
   return (
     <Flex
@@ -109,7 +110,12 @@ function FormSection({ formSection, ...props }: Props) {
                 }
               >
                 {formSection.content.map((item: any) => (
-                  <Radio key={item.id} value={item.data} label={item.data} />
+                  <Radio
+                    key={item.id}
+                    value={item.data}
+                    label={item.data}
+                    required={formSection.required}
+                  />
                 ))}
               </Radio.Group>
             )}
@@ -130,7 +136,12 @@ function FormSection({ formSection, ...props }: Props) {
                 }
               >
                 {formSection.content.map((item: any) => (
-                  <Checkbox key={item.id} value={item.data} label={item.data} />
+                  <Checkbox
+                    key={item.id}
+                    value={item.data}
+                    label={item.data}
+                    required={formSection.required}
+                  />
                 ))}
               </Checkbox.Group>
             )}
