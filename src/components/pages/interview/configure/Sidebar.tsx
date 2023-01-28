@@ -5,6 +5,7 @@ import 'dayjs/locale/ko';
 import { dateObjectToDateString } from 'utils/date';
 import { KOREA_NOW } from 'constants/date';
 import { addDays } from 'date-fns';
+import Button from 'components/common/Button';
 
 function Sidebar() {
   const [value, setValue] = useState<[Date | null, Date | null]>([
@@ -96,7 +97,7 @@ function Sidebar() {
         sx={(theme) => ({
           backgroundColor: theme.white,
           padding: '32px',
-          borderBottom: checked ? `1px solid ${theme.colors.gray[1]}` : 'none',
+          borderBottom: `1px solid ${theme.colors.gray[1]}`,
         })}
         gap="16px"
         justify="center"
@@ -129,6 +130,7 @@ function Sidebar() {
             sx={(theme) => ({
               backgroundColor: theme.white,
               padding: '32px',
+              borderBottom: `1px solid ${theme.colors.gray[1]}`,
             })}
             gap="16px"
             direction="row"
@@ -156,6 +158,16 @@ function Sidebar() {
           </Flex>
         </>
       )}
+      <Flex
+        sx={(theme) => ({
+          backgroundColor: theme.white,
+          padding: '32px',
+        })}
+        direction="column"
+        align="center"
+      >
+        <Button>블럭 생성하기!</Button>
+      </Flex>
     </Box>
   );
 }
