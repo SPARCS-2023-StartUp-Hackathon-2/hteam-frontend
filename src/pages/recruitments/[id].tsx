@@ -9,7 +9,7 @@ import InterviewSection from "components/pages/admin/sections/InterviewSection";
 
 import React from "react";
 
-function AdminPage() {
+function RecruitmentsDetailPage() {
   return (
     <Container size="lg" sx={{ paddingTop: 45 }}>
       <Flex justify="space-between" sx={{ marginBottom: 20 }}>
@@ -84,4 +84,4 @@ function AdminPage() {
   );
 }
 
-export default AdminPage;
+export default RecruitmentsDetailPage;
