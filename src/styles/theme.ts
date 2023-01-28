@@ -36,6 +36,7 @@ export const theme: MantineThemeOverride = {
       defaultProps: {
         sizes: {
           lg: 1194,
+          xs: 584,
         },
       },
     },

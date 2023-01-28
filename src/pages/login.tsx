@@ -4,7 +4,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
 
 interface FormInput {
-  id: string;
+  username: string;
   password: string;
 }
 
@@ -13,7 +13,7 @@ function LoginPage() {
 
   const form = useForm<FormInput>({
     initialValues: {
-      id: "",
+      username: "",
       password: "",
     },
   });
@@ -55,14 +55,12 @@ function LoginPage() {
           style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
         >
           <TextInput
-            id="id"
             label="아이디"
             placeholder="아이디를 입력해주세요."
             sx={{ marginBottom: 50 }}
-            {...form.getInputProps("id")}
+            {...form.getInputProps("username")}
           />
           <TextInput
-            id="password"
             label="비밀번호"
             type="password"
             placeholder="비밀번호를 입력해주세요."
