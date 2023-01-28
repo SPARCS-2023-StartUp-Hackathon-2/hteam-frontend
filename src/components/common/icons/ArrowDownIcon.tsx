@@ -11,7 +11,7 @@ const ArrowDownIcon = (props: Props) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M1 1L6 6L11 1" stroke="#C4CBCD" stroke-width="2" />
+      <path d="M1 1L6 6L11 1" stroke="#C4CBCD" strokeWidth="2" />
     </svg>
   );
 };
