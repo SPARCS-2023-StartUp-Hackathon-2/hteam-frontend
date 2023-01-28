@@ -14,7 +14,7 @@ function FormSectionBlockAside() {
         border: "1px solid",
         borderColor: theme.colors.gray[1],
         maxHeight: "100vh",
-        height: "100%",
+        minHeight: "100vh",
         maxWidth: "304px",
         width: "100%",
         overflow: "hidden",
