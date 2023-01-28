@@ -39,5 +39,14 @@ export const theme: MantineThemeOverride = {
         },
       },
     },
+
+    Textarea: {
+      styles: (theme) => ({
+        input: {
+          padding: "14px 20px",
+          borderColor: theme.colors.gray[1],
+        },
+      }),
+    },
   },
 };
