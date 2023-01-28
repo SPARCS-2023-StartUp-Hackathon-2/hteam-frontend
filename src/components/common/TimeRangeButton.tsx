@@ -9,7 +9,7 @@ interface Props
   extends ButtonProps,
     Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {
   children: ReactNode;
-  selected: boolean;
+  selected?: boolean;
 }
 
 function TimeRangeButton({

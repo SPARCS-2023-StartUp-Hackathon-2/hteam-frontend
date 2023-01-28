@@ -12,7 +12,12 @@ function InputInterviewScheduleSection() {
       {/* 기존거 .. */}
       {/* <Calendar amountOfMonths={2} locale="ko" />
       <AdminWeekAndTimeSelector /> */}
-      <Flex gap="100px">
+      <Flex
+        gap="100px"
+        justify="flex-start"
+        align="flex-start"
+        sx={{ width: '100%' }}
+      >
         <Sidebar />
         <DateBlockDisplayer />
       </Flex>
