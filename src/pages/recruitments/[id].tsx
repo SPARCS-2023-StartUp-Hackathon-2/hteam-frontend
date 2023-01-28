@@ -15,10 +15,12 @@ import InterviewSection from "components/pages/recruitments/sections/InterviewSe
 import ApplicantsSection from "components/pages/recruitments/sections/ApplicantsSection";
 import useFormInfo from "hooks/useFormInfo";
 import useRecruitments from "hooks/useRecruitments";
+import useRecruitment from "hooks/useRecruitment";
 
 function RecruitmentsDetailPage() {
   const router = useRouter();
   const id = router.query.id as string | undefined;
+  const { data } = useRecruitment(id as string);
 
   if (!id) return null;
   return (
@@ -36,13 +38,13 @@ function RecruitmentsDetailPage() {
         align="center"
         justify="center"
       >
-        <RecruitmentProcessGraph currentState="INTERVIEW" variant="big" />
+        <RecruitmentProcessGraph currentState={data?.state ?? "PREPARING"} variant="big" />
       </Flex>
       <Flex justify="space-between">
         <Flex direction="column" gap="36px" align="center">
           <DocumentSection rid={id} />
           <NextStepDownwardIcon />
-          <InterviewSection />
+          <InterviewSection rid={id} />
           <NextStepDownwardIcon />
           <Text
             c="gray.2"

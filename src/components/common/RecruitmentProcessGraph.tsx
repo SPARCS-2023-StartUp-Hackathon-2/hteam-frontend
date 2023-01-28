@@ -1,5 +1,7 @@
 import { Flex, Slider, Text } from "@mantine/core";
 import { SLIDER_STEPS, SLIDER_VALUES } from "constants/steps";
+import useRecruitment from "hooks/useRecruitment";
+import useRecruitments from "hooks/useRecruitments";
 import { useState } from "react";
 import { RecruitmentState } from "types/api";
 import { dateObjectToDateString } from "utils/date";
@@ -27,6 +29,7 @@ function findSliderValueIndexByState(currentState: RecruitmentState) {
 // Slider 로 만들어보기
 function RecruitmentProcessGraph({ currentState, startAt, endAt, variant = "small" }: Props) {
   const [value, setValue] = useState(40);
+
   return (
     <Flex direction="column" sx={{ position: "relative" }}>
       {variant === "big" && (
