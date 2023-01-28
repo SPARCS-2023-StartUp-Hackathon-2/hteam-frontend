@@ -16,7 +16,7 @@ function RecruitmentsDetailPage() {
       <BasicInfoSection rid={id} />
       <Flex justify="space-between">
         <Flex direction="column" gap="36px" align="center">
-          <DocumentSection />
+          <DocumentSection rid={id} />
           <NextStepDownwardIcon />
           <InterviewSection />
           <NextStepDownwardIcon />

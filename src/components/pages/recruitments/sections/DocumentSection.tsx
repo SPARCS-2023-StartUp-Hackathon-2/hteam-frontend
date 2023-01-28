@@ -5,8 +5,11 @@ import { MOCKUP_QUESTIONS } from "mockups/questions";
 import React from "react";
 import CopyButtonIcon from "components/common/icons/CopyButtonIcon";
 import MyButton from "components/common/Button";
+import useFormInfo from "hooks/useFormInfo";
 
-function DocumentSection() {
+function DocumentSection({ rid }: { rid: string }) {
+  const { data, error, isLoading } = useFormInfo(rid);
+
   return (
     <Box
       sx={(theme) => ({
