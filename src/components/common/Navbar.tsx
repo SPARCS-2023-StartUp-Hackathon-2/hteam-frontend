@@ -17,11 +17,11 @@ function Navbar() {
     >
       <Container size="lg" sx={{ height: "100%" }}>
         <Flex justify="space-between" align="center" sx={{ height: "100%" }}>
-          <Link href="/">
-            <Image src={logoImage} alt="logo" />
-          </Link>
+          <Flex gap={36}>
+            <Link href="/">
+              <Image src={logoImage} alt="logo" />
+            </Link>
 
-          <Flex>
             <Flex gap={40} sx={{ marginRight: 70 }}>
               <Text fw={600} sx={{ fontSize: 13 }} color="white">
                 개인
@@ -30,15 +30,15 @@ function Navbar() {
                 기업
               </Text>
               <Text fw={600} sx={{ fontSize: 13 }} color="white">
-                서비스 소개
+                고객센터
               </Text>
             </Flex>
-            <Link href="/login">
-              <Text fw={600} sx={{ fontSize: 13 }} color="white">
-                로그인
-              </Text>
-            </Link>
           </Flex>
+          <Link href="/login">
+            <Text fw={600} sx={{ fontSize: 13 }} color="white">
+              로그인
+            </Text>
+          </Link>
         </Flex>
       </Container>
     </Box>
