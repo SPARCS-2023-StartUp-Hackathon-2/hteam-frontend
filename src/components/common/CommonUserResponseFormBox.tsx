@@ -1,4 +1,4 @@
-import { Box } from '@mantine/core';
+import { Box, Flex } from '@mantine/core';
 import React from 'react';
 import { ReactNode } from 'react';
 
@@ -8,14 +8,16 @@ interface Props {
 
 function CommonUserResponseFormBox({ children }: Props) {
   return (
-    <Box
+    <Flex
       sx={{
         boxShadow: ' 0px 0px 30px 2px rgba(0, 0, 0, 0.1);',
-        width: 'max-content',
+        width: '1132px',
       }}
+      align="center"
+      justify="center"
     >
       {children}
-    </Box>
+    </Flex>
   );
 }
 

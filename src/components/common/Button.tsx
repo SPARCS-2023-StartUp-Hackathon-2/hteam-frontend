@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import { Button as MantineButton, ButtonProps } from '@mantine/core';
 
-interface Props extends ButtonProps {}
+interface Props
+  extends ButtonProps,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'color'> {}
 
 function Button({ children, ...props }: Props) {
   return (

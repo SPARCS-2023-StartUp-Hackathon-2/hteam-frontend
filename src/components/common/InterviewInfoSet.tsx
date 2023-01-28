@@ -1,15 +1,15 @@
 import React from 'react';
-import { Flex, Text } from '@mantine/core';
+import { Flex, FlexProps, Text } from '@mantine/core';
 
-interface Props {
+interface Props extends FlexProps {
   title: string;
   type: string;
   description: string;
 }
 
-function InterviewInfoSet({ title, type, description }: Props) {
+function InterviewInfoSet({ title, type, description, ...props }: Props) {
   return (
-    <Flex direction="column" gap="16px">
+    <Flex direction="column" gap="16px" {...props}>
       <Text
         c="gray.8"
         sx={(theme) => ({
