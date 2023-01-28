@@ -66,6 +66,7 @@ function FormSectionEditor({ dataId, order, type, ...props }: Props) {
                 color: theme.colors.gray[8],
                 lineHeight: "38px",
                 fontWeight: "bold",
+                paddingRight: "32px",
               },
             })}
             value={currentFormSection.question}
@@ -82,14 +83,17 @@ function FormSectionEditor({ dataId, order, type, ...props }: Props) {
               })
             }
           />
-          <MantineTextInput
+          <Textarea
             variant="unstyled"
             placeholder="설명을 입력해주세요."
             sx={{ marginBottom: 24 }}
+            autosize
+            minRows={1}
             styles={(theme) => ({
               input: {
                 fontSize: 20,
                 color: theme.colors.gray[8],
+                padding: "0 2px",
               },
             })}
             value={currentFormSection.description}
