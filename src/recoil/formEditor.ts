@@ -15,6 +15,7 @@ export const formSectionListState = atom<FormSectionItem[]>({
       type: "shortText",
       question: "단답",
       description: "단답",
+      required: false,
       content: "",
     },
     {
@@ -23,6 +24,7 @@ export const formSectionListState = atom<FormSectionItem[]>({
       type: "longText",
       question: "장문",
       description: "장문",
+      required: true,
       content: "",
     },
     {
@@ -31,6 +33,7 @@ export const formSectionListState = atom<FormSectionItem[]>({
       type: "radio",
       question: "객관",
       description: "객관",
+      required: true,
       content: [],
     },
     {
@@ -39,6 +42,7 @@ export const formSectionListState = atom<FormSectionItem[]>({
       type: "checkbox",
       question: "체크",
       description: "체크",
+      required: false,
       content: [],
     },
     {
@@ -47,6 +51,7 @@ export const formSectionListState = atom<FormSectionItem[]>({
       type: "dropdown",
       question: "드롭",
       description: "드롭",
+      required: false,
       content: [],
     },
   ],

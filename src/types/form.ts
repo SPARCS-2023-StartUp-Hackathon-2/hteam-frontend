@@ -6,5 +6,6 @@ export interface FormSectionItem {
   type: FormSectionType;
   question: string;
   description: string;
+  required: boolean;
   content: any;
 }

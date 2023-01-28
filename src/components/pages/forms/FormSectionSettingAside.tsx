@@ -1,7 +1,15 @@
 import { Box, Flex, Switch, Text } from "@mantine/core";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Dropdown from "components/common/Dropdown";
+import { formSectionListState, selectedFormSectionState } from "recoil/formEditor";
+import { FormSectionType } from "types/form";
 
 function FormSectionSettingAside() {
+  const [formSectionList, setFormSectionList] = useRecoilState(formSectionListState);
+  const selectedFormSection = useRecoilValue(selectedFormSectionState);
+
+  if (!selectedFormSection) return null;
+
   return (
     <Box
       component="aside"
@@ -51,7 +59,21 @@ function FormSectionSettingAside() {
             { value: "checkbox", label: "체크박스" },
             { value: "dropdown", label: "드롭다운" },
           ]}
-          defaultValue="shortText"
+          value={selectedFormSection.type}
+          onChange={(value) =>
+            setFormSectionList((list) => {
+              if (!value) return list;
+
+              const newSectionInfo = { ...selectedFormSection };
+              newSectionInfo.type = value as FormSectionType;
+              const point = list.findIndex((item) => item.id === newSectionInfo.id);
+              return [
+                ...list.slice(0, point),
+                newSectionInfo,
+                ...list.slice(point + 1, list.length),
+              ];
+            })
+          }
         />
       </Flex>
 
@@ -71,7 +93,21 @@ function FormSectionSettingAside() {
             <Text color="gray.6" sx={{ fontSize: 15 }}>
               필수
             </Text>
-            <Switch />
+            <Switch
+              checked={selectedFormSection.required}
+              onChange={(e) =>
+                setFormSectionList((list) => {
+                  const newSectionInfo = { ...selectedFormSection };
+                  newSectionInfo.required = e.currentTarget.checked;
+                  const point = list.findIndex((item) => item.id === newSectionInfo.id);
+                  return [
+                    ...list.slice(0, point),
+                    newSectionInfo,
+                    ...list.slice(point + 1, list.length),
+                  ];
+                })
+              }
+            />
           </Flex>
         </Flex>
       </Flex>

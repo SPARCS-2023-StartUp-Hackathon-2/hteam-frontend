@@ -22,6 +22,7 @@ function FormSectionBlockList() {
       type: "shortText",
       question: "",
       description: "",
+      required: false,
       content: "",
     };
 
