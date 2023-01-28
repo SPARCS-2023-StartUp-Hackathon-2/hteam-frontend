@@ -107,7 +107,7 @@ function RegisterPage() {
               <Flex direction="column" gap={28} sx={{ width: "100%" }}>
                 <TextInput
                   label="호스트"
-                  placeholder="SMTP 호스트 주소를 적어주세요."
+                  placeholder="SMTP 호스트 주소를 적어주세요. ex) smtp@gmail.com:8080"
                   required
                   {...form.getInputProps("smtpHost")}
                 />
@@ -119,6 +119,7 @@ function RegisterPage() {
                 />
                 <TextInput
                   label="비밀번호"
+                  type="password"
                   placeholder="SMTP 비밀번호를 적어주세요."
                   required
                   {...form.getInputProps("smtpPassword")}
