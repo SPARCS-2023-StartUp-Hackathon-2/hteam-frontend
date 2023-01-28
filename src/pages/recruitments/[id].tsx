@@ -4,65 +4,24 @@ import ArrowLeftIcon from "components/common/icons/ArrowLeftIcon";
 import CloseIcon from "components/common/icons/CloseIcon";
 import NextStepDownwardIcon from "components/common/icons/NextStepDownwardIcon";
 import RecruitmentProcessGraph from "components/common/RecruitmentProcessGraph";
-import ApplicantsSection from "components/pages/admin/sections/ApplicantsSection";
-import DocumentSection from "components/pages/admin/sections/DocumentSection";
-import InterviewSection from "components/pages/admin/sections/InterviewSection";
 
 import React from "react";
 import { RecruitmentState } from "types/api";
+import BasicInfoSection from "components/pages/recruitments/sections/BasicInfoSection";
+
+import { useRouter } from "next/router";
+import DocumentSection from "components/pages/recruitments/sections/DocumentSection";
+import InterviewSection from "components/pages/recruitments/sections/InterviewSection";
+import ApplicantsSection from "components/pages/recruitments/sections/ApplicantsSection";
 
 function RecruitmentsDetailPage() {
+  const router = useRouter();
+  const id = router.query.id as string | undefined;
+
+  if (!id) return null;
   return (
-    <Container size="lg" sx={{ paddingTop: 45 }}>
-      <Flex justify="space-between" sx={{ marginBottom: 20 }}>
-        <Flex gap="27px" align="baseline">
-          <ArrowLeftIcon />
-          <Flex direction="column" align="baseline">
-            <Text
-              c="gray.8"
-              sx={(theme) => ({
-                fontSize: "24px",
-                fontWeight: 600,
-                marginBottom: 16,
-              })}
-            >
-              allthat 개발동아리 8기 신입부원 모집
-            </Text>
-            <Text
-              c="gray.8"
-              sx={(theme) => ({
-                fontSize: "15px",
-                fontWeight: 400,
-              })}
-            >
-              2022.12.02 ~ 2023.01.17
-            </Text>
-          </Flex>
-        </Flex>
-        <Button
-          styles={(theme) => ({
-            root: {
-              backgroundColor: theme.white,
-              padding: "10px 30px",
-
-              fontSize: "13px",
-              fontWeight: 400,
-              border: `1px solid ${theme.colors.gray[1]}`,
-              color: theme.black,
-              borderRadius: theme.radius.sm,
-              "&:hover": {
-                backgroundColor: theme.colors.gray[1],
-              },
-            },
-            inner: {
-              height: "auto",
-            },
-          })}
-        >
-          <Text sx={{ lineHeight: 1, marginRight: 6 }}>삭제하기</Text> <CloseIcon />
-        </Button>
-      </Flex>
-
+    <Container size="lg" sx={{ paddingTop: 45, paddingBottom: 45 }}>
+      <BasicInfoSection rid={id} />
       <Flex
         sx={(theme) => ({
           backgroundColor: theme.white,
@@ -77,10 +36,9 @@ function RecruitmentsDetailPage() {
       >
         <RecruitmentProcessGraph currentState="INTERVIEW" variant="big" />
       </Flex>
-
-      <Flex>
+      <Flex justify="space-between">
         <Flex direction="column" gap="36px" align="center">
-          <DocumentSection />
+          <DocumentSection rid={id} />
           <NextStepDownwardIcon />
           <InterviewSection />
           <NextStepDownwardIcon />
