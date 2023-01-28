@@ -22,6 +22,9 @@ function TextInput({ size = "lg", ...props }: Props) {
           fontSize: 15,
           lineHeight: "100%",
         },
+        label: {
+          fontSize: 14,
+        },
       })}
       placeholder="입력란 예시"
       {...props}

@@ -12,7 +12,7 @@ function Navbar() {
       component="nav"
       sx={(theme) => ({
         position: "fixed",
-        zIndex: 1000,
+        zIndex: 10,
         width: "100%",
         height: 80,
         backgroundColor: theme.colors.gray[8],
