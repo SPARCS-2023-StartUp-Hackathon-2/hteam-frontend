@@ -1,5 +1,11 @@
 export type FormSectionType = "shortText" | "longText" | "radio" | "checkbox" | "dropdown";
 
+export interface BasicFormSectionItem {
+  name: string;
+  email: string;
+  phoneNumber: string;
+}
+
 export interface FormSectionItem {
   id: number;
   order: number;

@@ -6,12 +6,12 @@ import { FormSectionType } from "types/form";
 interface Props {
   dataId: number;
   order: number;
-  type: FormSectionType;
+  type: FormSectionType | "basic";
   question: string;
   selected?: boolean;
 }
 
-function typeToString(type: FormSectionType) {
+function typeToString(type: FormSectionType | "basic") {
   switch (type) {
     case "shortText":
       return "단답형";
@@ -23,6 +23,8 @@ function typeToString(type: FormSectionType) {
       return "체크박스";
     case "dropdown":
       return "드롭다운";
+    default:
+      return "기본 질문";
   }
 }
 

@@ -2,6 +2,7 @@ import { Flex } from "@mantine/core";
 import { useRecoilValue } from "recoil";
 import FormSectionEditor from "components/pages/forms/FormSectionEditor";
 import { formSectionListState, selectedFormSectionIdState } from "recoil/formEditor";
+import BasicFormSectionEditor from "components/pages/forms/BasicFormSectionEditor";
 
 function FormSectionEditorView() {
   const formSectionList = useRecoilValue(formSectionListState);
@@ -12,6 +13,7 @@ function FormSectionEditorView() {
 
   return (
     <Flex direction="column" gap={100} sx={{ flex: 1, padding: "84px 40px" }}>
+      {selectedFormSectionId === 0 && <BasicFormSectionEditor />}
       {selectedFormSection && (
         <FormSectionEditor
           dataId={selectedFormSection.id}

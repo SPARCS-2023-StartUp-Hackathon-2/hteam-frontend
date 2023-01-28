@@ -32,7 +32,7 @@ function FormSectionEditor({ dataId, order, type }: Props) {
   const handleClickDeleteButton = useCallback(() => {
     setFormSectionList((list) => {
       const filteredList = list.filter((item) => item.id !== dataId);
-      const newList = filteredList.map((item, idx) => ({ ...item, order: idx + 1 }));
+      const newList = filteredList.map((item, idx) => ({ ...item, order: idx + 2 }));
       return newList;
     });
   }, [setFormSectionList, dataId]);

@@ -18,7 +18,7 @@ function FormSectionBlockList() {
     const id = Date.now();
     const newSection: FormSectionItem = {
       id,
-      order: formSectionList.length + 1,
+      order: formSectionList.length + 2,
       type: "shortText",
       question: "",
       description: "",
@@ -81,6 +81,13 @@ function FormSectionBlockList() {
         direction="column"
         gap={12}
       >
+        <FormSectionBlock
+          dataId={0}
+          order={1}
+          type="basic"
+          question="신상 정보 기입"
+          selected={selectedFormSectionId === 0}
+        />
         {formSectionList.map((formSection, idx) => (
           <FormSectionBlock
             key={formSection.id}
