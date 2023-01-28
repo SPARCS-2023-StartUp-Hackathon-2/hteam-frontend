@@ -49,5 +49,22 @@ export const theme: MantineThemeOverride = {
         },
       }),
     },
+
+    TextInput: {
+      styles: (theme) => ({
+        input: {
+          borderColor: theme.colors.gray[1],
+          borderRadius: theme.radius.sm,
+          padding: "12px 16px",
+          height: "auto",
+          lineHeight: 1,
+        },
+        label: {
+          marginBottom: 12,
+          fontSize: 16,
+          fontWeight: 400,
+        },
+      }),
+    },
   },
 };

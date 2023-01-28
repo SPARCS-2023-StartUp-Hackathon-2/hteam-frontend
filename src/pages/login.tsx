@@ -1,6 +1,7 @@
 import { Box, Button, Flex, TextInput, Title, useMantineTheme } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconArrowLeft } from "@tabler/icons-react";
+import { axiosClient } from "lib/axios";
 import Link from "next/link";
 
 interface FormInput {
@@ -18,8 +19,9 @@ function LoginPage() {
     },
   });
 
-  const handleSubmit = (values: FormInput) => {
-    console.log(values);
+  const handleSubmit = async (values: FormInput) => {
+    const { data } = await axiosClient.post("/users/signin", values);
+    console.log(data);
   };
 
   return (
@@ -50,25 +52,33 @@ function LoginPage() {
           로그인
         </Title>
 
-        <form
-          onSubmit={form.onSubmit(handleSubmit)}
-          style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-        >
-          <TextInput
-            label="아이디"
-            placeholder="아이디를 입력해주세요."
-            sx={{ marginBottom: 50 }}
-            {...form.getInputProps("username")}
-          />
-          <TextInput
-            label="비밀번호"
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-            sx={{ marginBottom: 56 }}
-            {...form.getInputProps("password")}
-          />
+        <form onSubmit={form.onSubmit(handleSubmit)} style={{ width: "100%" }}>
+          <Flex direction="column" align="center" sx={{ width: "100%" }}>
+            <TextInput
+              label="아이디"
+              placeholder="아이디를 입력해주세요."
+              required
+              sx={{ marginBottom: 50, width: 260 }}
+              {...form.getInputProps("username")}
+            />
+            <TextInput
+              label="비밀번호"
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              required
+              sx={{ marginBottom: 56, width: 260 }}
+              {...form.getInputProps("password")}
+            />
 
-          <Button type="submit">로그인</Button>
+            <Button type="submit" sx={{ marginBottom: 12, width: 162, borderRadius: "999px" }}>
+              로그인
+            </Button>
+            <Link href="/register" passHref legacyBehavior>
+              <Button component="a" variant="outline" sx={{ width: 162, borderRadius: "999px" }}>
+                회원가입
+              </Button>
+            </Link>
+          </Flex>
         </form>
       </Flex>
     </Flex>

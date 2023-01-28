@@ -43,7 +43,7 @@ function RegisterPage() {
     <Container size="xs">
       <Flex direction="column" align="center" sx={{ position: "relative", padding: "50px 0" }}>
         <Box sx={{ position: "absolute", top: 56, left: 0 }}>
-          <Link href="/">
+          <Link href="/login">
             <IconArrowLeft size={28} color={theme.colors.gray[5]} />
           </Link>
         </Box>
