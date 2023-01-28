@@ -1,14 +1,16 @@
-import { Flex, Text } from "@mantine/core";
-import TextInput from "components/common/TextInput";
+import { Flex } from "@mantine/core";
 import BasicInfoInput from "components/pages/forms/BasicInfoInput";
+import { ComponentProps } from "react";
 import { useRecoilState } from "recoil";
 import { basicFormSectionState } from "recoil/formEditor";
 
-function BasicFormSectionEditor() {
+interface Props extends ComponentProps<typeof Flex> {}
+
+function BasicFormSectionEditor(props: Props) {
   const [basicFormSection, setBasicFormSection] = useRecoilState(basicFormSectionState);
 
   return (
-    <Flex direction="column" gap={30} sx={{ width: "100%" }}>
+    <Flex direction="column" gap={30} sx={{ width: "100%", margin: "auto 0" }} {...props}>
       <BasicInfoInput
         order={1}
         title="이름을 입력해주세요."

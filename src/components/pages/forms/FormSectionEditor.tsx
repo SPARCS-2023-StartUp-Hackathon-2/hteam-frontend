@@ -14,16 +14,16 @@ import DropdownEditorInputGroup from "components/common/DropdownEditorInputGroup
 import TextInput from "components/common/TextInput";
 import { FormSectionType } from "types/form";
 import { formSectionListState, selectedFormSectionState } from "recoil/formEditor";
-import { useCallback } from "react";
+import { ComponentProps, useCallback } from "react";
 import RadioEditorInputGroup from "components/common/RadioEditorInputGroup";
 
-interface Props {
+interface Props extends ComponentProps<typeof Flex> {
   dataId: number;
   order: number;
   type: FormSectionType;
 }
 
-function FormSectionEditor({ dataId, order, type }: Props) {
+function FormSectionEditor({ dataId, order, type, ...props }: Props) {
   const theme = useMantineTheme();
 
   const [formSectionList, setFormSectionList] = useRecoilState(formSectionListState);
@@ -42,7 +42,7 @@ function FormSectionEditor({ dataId, order, type }: Props) {
   }
 
   return (
-    <Box sx={{ width: "100%", position: "relative" }}>
+    <Flex direction="column" sx={{ width: "100%", position: "relative", margin: "auto 0" }}>
       <Flex align="flex-start" gap={15}>
         <Text
           sx={(theme) => ({
@@ -154,7 +154,7 @@ function FormSectionEditor({ dataId, order, type }: Props) {
           <IconX size={24} color={theme.colors.gray[8]} />
         </ActionIcon>
       </Flex>
-    </Box>
+    </Flex>
   );
 }
 
