@@ -44,7 +44,7 @@ function DocumentSection({ rid }: { rid: string }) {
         </Flex>
       </Flex>
       <Flex direction="column" gap="16px" sx={{ marginBottom: 26 }}>
-        {MOCKUP_QUESTIONS.map((question, index) => (
+        {data?.content?.data?.map((question: any, index: number) => (
           <FormSectionBlock key={index} dataId={index} {...question} />
         ))}
       </Flex>

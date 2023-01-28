@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 import DocumentSection from "components/pages/recruitments/sections/DocumentSection";
 import InterviewSection from "components/pages/recruitments/sections/InterviewSection";
 import ApplicantsSection from "components/pages/recruitments/sections/ApplicantsSection";
+import useFormInfo from "hooks/useFormInfo";
+import useRecruitments from "hooks/useRecruitments";
 
 function RecruitmentsDetailPage() {
   const router = useRouter();

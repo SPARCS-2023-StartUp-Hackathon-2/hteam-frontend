@@ -12,6 +12,7 @@ export interface Recruitment {
   state: string;
   startAt: string;
   endAt: string;
+  content: any;
 }
 
 // 하나 날짜
