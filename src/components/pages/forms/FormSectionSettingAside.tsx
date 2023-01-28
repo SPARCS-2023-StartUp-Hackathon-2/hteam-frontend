@@ -20,7 +20,7 @@ function FormSectionSettingAside() {
   const selectedFormSection = useRecoilValue(selectedFormSectionState);
 
   const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const router = useRouter();
   const rid = router.query.rid as string;
