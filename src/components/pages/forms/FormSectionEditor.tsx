@@ -15,6 +15,7 @@ import TextInput from "components/common/TextInput";
 import { FormSectionType } from "types/form";
 import { formSectionListState, selectedFormSectionState } from "recoil/formEditor";
 import { useCallback } from "react";
+import RadioEditorInputGroup from "components/common/RadioEditorInputGroup";
 
 interface Props {
   dataId: number;
@@ -140,6 +141,7 @@ function FormSectionEditor({ dataId, order, type }: Props) {
               }
             />
           )}
+          {type === "radio" && <RadioEditorInputGroup />}
           {type === "checkbox" && <CheckboxEditorInputGroup />}
           {type === "dropdown" && <DropdownEditorInputGroup />}
         </Flex>

@@ -1,4 +1,4 @@
-import { ActionIcon, Checkbox, Flex, useMantineTheme } from "@mantine/core";
+import { ActionIcon, Checkbox, Flex, Radio, useMantineTheme } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
 import TextInput from "components/common/TextInput";
 import { ComponentProps } from "react";
@@ -9,7 +9,7 @@ interface Props extends ComponentProps<typeof TextInput> {
   showDeleteButton?: boolean;
 }
 
-function CheckboxEditorInput({
+function RadioEditorInput({
   dataId,
   onClickDeleteButton,
   showDeleteButton = true,
@@ -19,7 +19,7 @@ function CheckboxEditorInput({
 
   return (
     <Flex gap={12} align="center">
-      <Checkbox checked={false} readOnly />
+      <Radio checked={false} readOnly />
       <TextInput size="sm" {...props} />
       {showDeleteButton && (
         <ActionIcon variant="transparent" onClick={() => onClickDeleteButton(dataId)}>
@@ -30,4 +30,4 @@ function CheckboxEditorInput({
   );
 }
 
-export default CheckboxEditorInput;
+export default RadioEditorInput;
