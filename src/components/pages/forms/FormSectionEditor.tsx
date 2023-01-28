@@ -7,19 +7,36 @@ import {
   useMantineTheme,
   Textarea,
 } from "@mantine/core";
+import { useRecoilState } from "recoil";
 import { IconX } from "@tabler/icons-react";
 import CheckboxEditorInputGroup from "components/common/CheckboxEditorInputGroup";
 import DropdownEditorInputGroup from "components/common/DropdownEditorInputGroup";
 import TextInput from "components/common/TextInput";
 import { FormSectionType } from "types/form";
+import { formSectionListState, selectedFormSectionIdState } from "recoil/formEditor";
+import { useCallback } from "react";
 
 interface Props {
+  dataId: number;
   order: number;
   type: FormSectionType;
 }
 
-function FormSectionEditor({ order, type }: Props) {
+function FormSectionEditor({ dataId, order, type }: Props) {
   const theme = useMantineTheme();
+
+  const [formSectionList, setFormSectionList] = useRecoilState(formSectionListState);
+  const [selectedFormSectionId, setSelectedFormSectionId] = useRecoilState(
+    selectedFormSectionIdState
+  );
+
+  const handleClickDeleteButton = useCallback(() => {
+    setFormSectionList((list) => {
+      const filteredList = list.filter((item) => item.id !== dataId);
+      const newList = filteredList.map((item, idx) => ({ ...item, order: idx + 1 }));
+      return newList;
+    });
+  }, [setFormSectionList, dataId]);
 
   return (
     <Box sx={{ width: "100%", position: "relative" }}>
@@ -66,7 +83,11 @@ function FormSectionEditor({ order, type }: Props) {
           {type === "dropdown" && <DropdownEditorInputGroup />}
         </Flex>
 
-        <ActionIcon variant="transparent" sx={{ position: "absolute", top: 4, right: 0 }}>
+        <ActionIcon
+          variant="transparent"
+          sx={{ position: "absolute", top: 4, right: 0 }}
+          onClick={handleClickDeleteButton}
+        >
           <IconX size={24} color={theme.colors.gray[8]} />
         </ActionIcon>
       </Flex>

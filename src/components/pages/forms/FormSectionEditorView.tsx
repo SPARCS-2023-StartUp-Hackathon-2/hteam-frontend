@@ -13,7 +13,11 @@ function FormSectionEditorView() {
   return (
     <Flex direction="column" gap={100} sx={{ flex: 1, padding: "84px 40px" }}>
       {selectedFormSection && (
-        <FormSectionEditor order={selectedFormSection.order} type={selectedFormSection.type} />
+        <FormSectionEditor
+          dataId={selectedFormSection.id}
+          order={selectedFormSection.order}
+          type={selectedFormSection.type}
+        />
       )}
     </Flex>
   );

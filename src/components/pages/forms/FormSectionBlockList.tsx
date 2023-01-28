@@ -1,14 +1,31 @@
 import { ActionIcon, Box, Flex, Text, useMantineTheme } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import FormSectionBlock from "components/pages/forms/FormSectionBlock";
 import { formSectionListState, selectedFormSectionIdState } from "recoil/formEditor";
+import { useCallback } from "react";
+import { FormSectionItem } from "types/form";
 
 function FormSectionBlockList() {
   const theme = useMantineTheme();
 
-  const formSectionList = useRecoilValue(formSectionListState);
-  const selectedFormSectionId = useRecoilValue(selectedFormSectionIdState);
+  const [formSectionList, setFormSectionList] = useRecoilState(formSectionListState);
+  const [selectedFormSectionId, setSelectedFormSectionId] = useRecoilState(
+    selectedFormSectionIdState
+  );
+
+  const handleClickAddButton = useCallback(() => {
+    const id = Date.now();
+    const newSection: FormSectionItem = {
+      id,
+      order: formSectionList.length + 1,
+      type: "shortText",
+      question: "",
+    };
+
+    setFormSectionList([...formSectionList, newSection]);
+    setSelectedFormSectionId(id);
+  }, [formSectionList, setFormSectionList, setSelectedFormSectionId]);
 
   return (
     <Box
@@ -46,6 +63,7 @@ function FormSectionBlockList() {
             backgroundColor: theme.colors.gray[0],
           })}
           size={20}
+          onClick={handleClickAddButton}
         >
           <IconPlus size={16} color={theme.colors.gray[5]} />
         </ActionIcon>
@@ -60,7 +78,7 @@ function FormSectionBlockList() {
         direction="column"
         gap={12}
       >
-        {formSectionList.map((formSection) => (
+        {formSectionList.map((formSection, idx) => (
           <FormSectionBlock
             key={formSection.id}
             dataId={formSection.id}
