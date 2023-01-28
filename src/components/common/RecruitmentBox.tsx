@@ -1,5 +1,5 @@
 import { Button, Flex, Text } from "@mantine/core";
-import ProcessGraph from "components/common/ProcessGraph";
+import ProcessGraph from "components/common/RecruitmentProcessGraph";
 
 interface Props {
   title: string;
@@ -37,7 +37,7 @@ function RecruitmentBox({ title, startAt, endAt, state }: Props) {
         </Button>
       </Flex>
 
-      <ProcessGraph currentState={state} />
+      <ProcessGraph currentState="PREPARING" />
     </Flex>
   );
 }
