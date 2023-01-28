@@ -57,7 +57,7 @@ function RecruitmentsDetailPage() {
           </Text>
         </Flex>
         <Flex sx={{ marginLeft: 52, flexGrow: 1 }}>
-          <ApplicantsSection />
+          <ApplicantsSection rid={id} />
         </Flex>
       </Flex>
     </Container>
