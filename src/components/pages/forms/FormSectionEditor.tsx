@@ -7,13 +7,13 @@ import {
   useMantineTheme,
   Textarea,
 } from "@mantine/core";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { IconX } from "@tabler/icons-react";
 import CheckboxEditorInputGroup from "components/common/CheckboxEditorInputGroup";
 import DropdownEditorInputGroup from "components/common/DropdownEditorInputGroup";
 import TextInput from "components/common/TextInput";
 import { FormSectionType } from "types/form";
-import { formSectionListState, selectedFormSectionIdState } from "recoil/formEditor";
+import { formSectionListState, selectedFormSectionState } from "recoil/formEditor";
 import { useCallback } from "react";
 
 interface Props {
@@ -26,9 +26,7 @@ function FormSectionEditor({ dataId, order, type }: Props) {
   const theme = useMantineTheme();
 
   const [formSectionList, setFormSectionList] = useRecoilState(formSectionListState);
-  const [selectedFormSectionId, setSelectedFormSectionId] = useRecoilState(
-    selectedFormSectionIdState
-  );
+  const currentFormSection = useRecoilValue(selectedFormSectionState);
 
   const handleClickDeleteButton = useCallback(() => {
     setFormSectionList((list) => {
@@ -37,6 +35,10 @@ function FormSectionEditor({ dataId, order, type }: Props) {
       return newList;
     });
   }, [setFormSectionList, dataId]);
+
+  if (!currentFormSection) {
+    return null;
+  }
 
   return (
     <Box sx={{ width: "100%", position: "relative" }}>
@@ -65,6 +67,19 @@ function FormSectionEditor({ dataId, order, type }: Props) {
                 fontWeight: "bold",
               },
             })}
+            value={currentFormSection.question}
+            onChange={(e) =>
+              setFormSectionList((list) => {
+                const newSectionInfo = { ...currentFormSection };
+                newSectionInfo.question = e.target.value;
+                const point = list.findIndex((item) => item.id === newSectionInfo.id);
+                return [
+                  ...list.slice(0, point),
+                  newSectionInfo,
+                  ...list.slice(point + 1, list.length),
+                ];
+              })
+            }
           />
           <MantineTextInput
             variant="unstyled"
@@ -76,9 +91,55 @@ function FormSectionEditor({ dataId, order, type }: Props) {
                 color: theme.colors.gray[8],
               },
             })}
+            value={currentFormSection.description}
+            onChange={(e) =>
+              setFormSectionList((list) => {
+                const newSectionInfo = { ...currentFormSection };
+                newSectionInfo.description = e.target.value;
+                const point = list.findIndex((item) => item.id === newSectionInfo.id);
+                return [
+                  ...list.slice(0, point),
+                  newSectionInfo,
+                  ...list.slice(point + 1, list.length),
+                ];
+              })
+            }
           />
-          {type === "shortText" && <TextInput />}
-          {type === "longText" && <Textarea placeholder="입력란 예시" />}
+          {type === "shortText" && (
+            <TextInput
+              value={currentFormSection.content}
+              onChange={(e) =>
+                setFormSectionList((list) => {
+                  const newSectionInfo = { ...currentFormSection };
+                  newSectionInfo.content = e.target.value;
+                  const point = list.findIndex((item) => item.id === newSectionInfo.id);
+                  return [
+                    ...list.slice(0, point),
+                    newSectionInfo,
+                    ...list.slice(point + 1, list.length),
+                  ];
+                })
+              }
+            />
+          )}
+          {type === "longText" && (
+            <Textarea
+              placeholder="입력란 예시"
+              value={currentFormSection.content}
+              onChange={(e) =>
+                setFormSectionList((list) => {
+                  const newSectionInfo = { ...currentFormSection };
+                  newSectionInfo.content = e.target.value;
+                  const point = list.findIndex((item) => item.id === newSectionInfo.id);
+                  return [
+                    ...list.slice(0, point),
+                    newSectionInfo,
+                    ...list.slice(point + 1, list.length),
+                  ];
+                })
+              }
+            />
+          )}
           {type === "checkbox" && <CheckboxEditorInputGroup />}
           {type === "dropdown" && <DropdownEditorInputGroup />}
         </Flex>

@@ -21,6 +21,8 @@ function FormSectionBlockList() {
       order: formSectionList.length + 1,
       type: "shortText",
       question: "",
+      description: "",
+      content: "",
     };
 
     setFormSectionList([...formSectionList, newSection]);

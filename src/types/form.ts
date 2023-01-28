@@ -5,4 +5,6 @@ export interface FormSectionItem {
   order: number;
   type: FormSectionType;
   question: string;
+  description: string;
+  content: any;
 }
