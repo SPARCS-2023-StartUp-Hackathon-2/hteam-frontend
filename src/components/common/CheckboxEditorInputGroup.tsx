@@ -3,18 +3,14 @@ import CheckboxEditorInput from "components/common/CheckboxEditorInput";
 import { useCallback, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { formSectionListState, selectedFormSectionState } from "recoil/formEditor";
-
-interface InputData {
-  id: number;
-  data: string;
-}
+import { AddibleInputData } from "types/form";
 
 function CheckboxEditorInputGroup() {
   const [formSectionList, setFormSectionList] = useRecoilState(formSectionListState);
   const selectedFormSection = useRecoilValue(selectedFormSectionState);
 
   const handleAddButtonClick = useCallback(() => {
-    const newData: InputData = { id: Date.now(), data: "" };
+    const newData: AddibleInputData = { id: Date.now(), data: "" };
     const newInputData = [...selectedFormSection!.content, newData];
     setFormSectionList((list) => {
       const newSectionInfo = { ...selectedFormSection! };
@@ -29,7 +25,7 @@ function CheckboxEditorInputGroup() {
       setFormSectionList((list) => {
         const newSectionInfo = { ...selectedFormSection! };
         const newContent = selectedFormSection!.content.filter(
-          (item: InputData) => item.id !== dataId
+          (item: AddibleInputData) => item.id !== dataId
         );
         newSectionInfo.content = newContent;
         const point = list.findIndex((item) => item.id === newSectionInfo.id);
@@ -43,7 +39,7 @@ function CheckboxEditorInputGroup() {
 
   return (
     <Flex gap={20} direction="column">
-      {selectedFormSection.content.map((data: InputData) => (
+      {selectedFormSection.content.map((data: AddibleInputData) => (
         <CheckboxEditorInput
           key={data.id}
           dataId={data.id}
@@ -53,7 +49,7 @@ function CheckboxEditorInputGroup() {
           onChange={(e) =>
             setFormSectionList((list) => {
               const newSectionInfo = { ...selectedFormSection };
-              const content = [...newSectionInfo.content] as InputData[];
+              const content = [...newSectionInfo.content] as AddibleInputData[];
               const contentPoint = content.findIndex((item) => item.id === data.id);
               const newContent = [
                 ...content.slice(0, contentPoint),

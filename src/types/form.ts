@@ -9,3 +9,8 @@ export interface FormSectionItem {
   required: boolean;
   content: any;
 }
+
+export interface AddibleInputData {
+  id: number;
+  data: string;
+}
