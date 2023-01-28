@@ -1,19 +1,51 @@
 import { Box, Checkbox, Divider, Flex, NumberInput, Text } from '@mantine/core';
 import { RangeCalendar, TimeInput } from '@mantine/dates';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import 'dayjs/locale/ko';
 import { dateObjectToDateString } from 'utils/date';
 import { KOREA_NOW } from 'constants/date';
 import { addDays } from 'date-fns';
 import Button from 'components/common/Button';
+import { useForm } from '@mantine/form';
+import { generateDates } from 'utils/generateDate';
+import { DatesContext } from 'components/pages/interview/configure/sections/InputInterviewScheduleSection';
 
 function Sidebar() {
+  const { setDates } = useContext(DatesContext);
+
+  function handleGenerateDates() {
+    console.log(form.values);
+    console.log(form);
+    console.log('----------');
+    const generatedDates = generateDates(
+      new Date(form.values.dateRange[0]),
+      new Date(form.values.dateRange[1]),
+      new Date(form.values.startTime),
+      new Date(form.values.endTime),
+      Number(form.values.duration),
+    );
+
+    console.log(generatedDates);
+    setDates(generatedDates);
+  }
+  const form = useForm({
+    initialValues: {
+      dateRange: [KOREA_NOW, addDays(KOREA_NOW, 3)],
+      startTime: '',
+      endTime: '',
+      duration: '',
+    },
+  });
+
   const [value, setValue] = useState<[Date | null, Date | null]>([
     KOREA_NOW,
     addDays(KOREA_NOW, 3),
   ]);
 
   const [checked, setChecked] = useState(false);
+
+  // 인터뷰 기간
+  const [duration, setDuration] = useState(0);
 
   return (
     <Box
@@ -43,22 +75,27 @@ function Sidebar() {
         </Text>
         <RangeCalendar
           locale="ko"
-          value={value}
-          onChange={setValue}
+          // value={value}
+          // onChange={setValue}
           firstDayOfWeek="sunday"
           sx={{
             marginBottom: 16,
           }}
+          {...form.getInputProps('dateRange')}
         />
-        <Flex direction="row">
+        {/* <Flex direction="row">
           <Text>
-            {value[0] ? dateObjectToDateString(value[0]) : '시작 일자 선택'}
+            {form.values.dateRange[0]
+              ? dateObjectToDateString(form.values.dateRange[0])
+              : '시작 일자 선택'}
           </Text>
           &nbsp;-&nbsp;
           <Text>
-            {value[1] ? dateObjectToDateString(value[1]) : '종료 일자 선택'}
+            {form.values.dateRange[1]
+              ? dateObjectToDateString(form.values.dateRange[1])
+              : '종료 일자 선택'}
           </Text>
-        </Flex>
+        </Flex> */}
       </Flex>
       <Flex
         sx={(theme) => ({
@@ -82,12 +119,12 @@ function Sidebar() {
         <Flex gap="24px" align="center" direction="column">
           <Flex direction="column" align="center" gap="8px">
             <Text>시작 시각</Text>
-            <TimeInput />
+            <TimeInput {...form.getInputProps('startTime')} />
           </Flex>
 
           <Flex direction="column" align="center" gap="8px">
             <Text>종료 시각</Text>
-            <TimeInput />
+            <TimeInput {...form.getInputProps('endTime')} />
           </Flex>
         </Flex>
       </Flex>
@@ -113,7 +150,15 @@ function Sidebar() {
           </Text>
           <Flex gap="24px" direction="column" align="center">
             <Flex align="center" gap="8px">
-              <NumberInput sx={{ width: 100 }} /> 분
+              <NumberInput
+                // value={duration}
+                // onChange={(val) => {
+                //   if (val) setDuration(val);
+                // }}
+                {...form.getInputProps('duration')}
+                sx={{ width: 100 }}
+              />{' '}
+              분
             </Flex>
           </Flex>
         </Flex>
@@ -166,7 +211,7 @@ function Sidebar() {
         direction="column"
         align="center"
       >
-        <Button>블럭 생성하기!</Button>
+        <Button onClick={handleGenerateDates}>블럭 생성하기!</Button>
       </Flex>
     </Box>
   );

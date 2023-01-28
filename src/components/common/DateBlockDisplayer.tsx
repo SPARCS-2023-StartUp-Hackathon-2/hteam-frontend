@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Flex, Text } from '@mantine/core';
 import TimeRangeButton from 'components/common/TimeRangeButton';
 import { DateGroup } from 'types/api';
 import { MOCKUP_GENERATED_TIMES } from 'mockups/dates';
+import { DatesContext } from 'components/pages/interview/configure/sections/InputInterviewScheduleSection';
 
-function SingleDate({ date, times }: DateGroup) {
+function SingleDate({ date, times }: any) {
+  console.log('DATE', date, 'TIMES', times);
   return (
     <>
       <Flex direction="column" align="flex-start">
@@ -16,7 +18,7 @@ function SingleDate({ date, times }: DateGroup) {
             marginBottom: 16,
           })}
         >
-          {date}
+          {date.toLocaleDateString('ko-KR')}
         </Text>
         {/* <Text
         c="gray.8"
@@ -28,10 +30,8 @@ function SingleDate({ date, times }: DateGroup) {
         오전
       </Text> */}
         <Flex gap="8px" wrap="wrap">
-          {times.map((time, index) => (
-            <TimeRangeButton key={index}>
-              {time.start}-{time.end}
-            </TimeRangeButton>
+          {times.map((time: any, index: number) => (
+            <TimeRangeButton key={index}>{time}</TimeRangeButton>
           ))}
         </Flex>
       </Flex>
@@ -40,11 +40,15 @@ function SingleDate({ date, times }: DateGroup) {
 }
 
 function DateBlockDisplayer() {
+  const { dates } = useContext(DatesContext);
+  console.log('DATES', dates);
   return (
     <Flex direction="column" gap="24px">
-      {MOCKUP_GENERATED_TIMES.map((time, index) => (
-        <SingleDate key={index} {...time} />
-      ))}
+      {dates &&
+        dates?.length > 0 &&
+        dates.map((time: DateGroup, index: number) => (
+          <SingleDate key={index} {...time} />
+        ))}
     </Flex>
   );
 }
