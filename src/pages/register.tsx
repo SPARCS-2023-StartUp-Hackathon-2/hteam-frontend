@@ -9,6 +9,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { showNotification } from "@mantine/notifications";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { axiosClient } from "lib/axios";
 import Link from "next/link";
@@ -39,12 +40,23 @@ function RegisterPage() {
 
   const handleSubmit = async (values: FormInput) => {
     try {
-      const { data } = await axiosClient.post("/users/signup", values);
-      console.log(data);
+      await axiosClient.post("/users/signup", values);
+      showNotification({
+        title: "회원가입 성공",
+        message: "회원가입이 완료되었습니다.",
+        color: "green",
+        autoClose: 5000,
+      });
 
       Router.push("/login");
     } catch (e) {
       console.error(e);
+      showNotification({
+        title: "회원가입 실패",
+        message: "오류가 발생했습니다.",
+        color: "red",
+        autoClose: 5000,
+      });
     }
   };
 
