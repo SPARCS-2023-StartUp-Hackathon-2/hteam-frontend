@@ -15,10 +15,10 @@ function FormSectionSettingAside() {
       sx={(theme) => ({
         display: "flex",
         flexDirection: "column",
-        border: "1px solid",
+        borderLeft: "1px solid",
+        borderRight: "1px solid",
         borderColor: theme.colors.gray[1],
-        maxHeight: "100vh",
-        minHeight: "100vh",
+        height: "100%",
         maxWidth: "304px",
         width: "100%",
         overflow: "hidden",

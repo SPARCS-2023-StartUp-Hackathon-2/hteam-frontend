@@ -5,7 +5,7 @@ import FormSectionSettingAside from "components/pages/forms/FormSectionSettingAs
 
 function FormEditorPage() {
   return (
-    <Container size="lg" sx={{ display: "flex" }}>
+    <Container size="lg" sx={{ display: "flex", height: "calc(100vh - 80px)" }}>
       <FormSectionBlockList />
       <FormSectionEditorView />
       <FormSectionSettingAside />
