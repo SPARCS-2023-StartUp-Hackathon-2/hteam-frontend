@@ -4,7 +4,7 @@ import CommonUserResponseFormBox from 'components/common/CommonUserResponseFormB
 import InterviewInfoSet from 'components/common/InterviewInfoSet';
 import { INTERVIEW_TYPES } from 'constants/interviews';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'dayjs/locale/ko';
 import { MOCKUP_EXPORT_TIMES } from 'mockups/dates';
 import TimeRangeButton from 'components/common/TimeRangeButton';
@@ -18,6 +18,12 @@ function ApplicantFormPage() {
   );
 
   const [value, setValue] = useState<Date>();
+  const [showTime, setShowTime] = useState(false); // 시간 선택 보여줄까요?
+  useEffect(() => {
+    if (value) {
+      setShowTime(true);
+    }
+  }, [value]);
   return (
     <Flex
       sx={{
@@ -35,7 +41,6 @@ function ApplicantFormPage() {
             sx={(theme) => ({
               borderRight: `1px solid ${theme.colors.gray[1]}`,
               padding: '32px',
-              height: '100%',
             })}
           >
             <InterviewInfoSet
@@ -50,6 +55,9 @@ function ApplicantFormPage() {
             align="center"
             sx={(theme) => ({
               padding: '32px',
+              borderRight: showTime
+                ? `1px solid ${theme.colors.gray[1]}`
+                : 'none',
             })}
           >
             <Calendar
@@ -63,37 +71,45 @@ function ApplicantFormPage() {
               value={value}
               onChange={setValue as any} // TODO: any 제거
             />
-            <p>{value?.toUTCString() ?? '선택 바람'}</p>
           </Flex>
-          <Flex
-            gap="12px"
-            direction="column"
-            align="center"
-            sx={(theme) => ({
-              borderRight: `1px solid ${theme.colors.gray[1]}`,
-              padding: '32px',
-              height: '100%',
-            })}
-          >
-            {MOCKUP_EXPORT_TIMES.map((time, index) => (
-              <TimeRangeButton
-                onClick={() => {
-                  setSelected(
-                    selected.map((item, i) => {
-                      if (i === index) {
-                        return true;
-                      }
-                    }),
-                  );
-                }}
-                selected={selected[index]}
-                disabled={time.disabled}
-                key={index}
-              >
-                {time.time}
-              </TimeRangeButton>
-            ))}
-          </Flex>
+          {showTime && (
+            <Flex
+              gap="12px"
+              direction="column"
+              align="flex-start"
+              sx={(theme) => ({
+                padding: '32px',
+                height: '100%',
+              })}
+            >
+              <p>
+                {value
+                  ? new Intl.DateTimeFormat('ko-KR', {
+                      dateStyle: 'long',
+                      timeZone: 'Asia/Seoul',
+                    }).format(value)
+                  : '선택 바람'}
+              </p>
+              {MOCKUP_EXPORT_TIMES.map((time, index) => (
+                <TimeRangeButton
+                  onClick={() => {
+                    setSelected(
+                      selected.map((item, i) => {
+                        if (i === index) {
+                          return true;
+                        }
+                      }),
+                    );
+                  }}
+                  selected={selected[index]}
+                  disabled={time.disabled}
+                  key={index}
+                >
+                  {time.time}
+                </TimeRangeButton>
+              ))}
+            </Flex>
+          )}
         </Flex>
       </CommonUserResponseFormBox>
     </Flex>
