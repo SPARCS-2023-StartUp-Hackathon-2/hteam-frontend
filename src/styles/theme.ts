@@ -36,6 +36,7 @@ export const theme: MantineThemeOverride = {
       defaultProps: {
         sizes: {
           lg: 1194,
+          xs: 584,
         },
       },
     },
@@ -45,6 +46,23 @@ export const theme: MantineThemeOverride = {
         input: {
           padding: "14px 20px",
           borderColor: theme.colors.gray[1],
+        },
+      }),
+    },
+
+    TextInput: {
+      styles: (theme) => ({
+        input: {
+          borderColor: theme.colors.gray[1],
+          borderRadius: theme.radius.sm,
+          padding: "12px 16px",
+          height: "auto",
+          lineHeight: 1,
+        },
+        label: {
+          marginBottom: 12,
+          fontSize: 16,
+          fontWeight: 400,
         },
       }),
     },

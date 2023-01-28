@@ -1,9 +1,12 @@
-import { Box, Container, Flex, Text } from "@mantine/core";
+import { Box, Container, Flex, Text, UnstyledButton } from "@mantine/core";
+import useMe from "hooks/useMe";
 import Image from "next/image";
 import Link from "next/link";
 import logoImage from "public/logo.svg";
 
 function Navbar() {
+  const { data, loggedIn, logout } = useMe();
+
   return (
     <Box
       component="nav"
@@ -17,11 +20,11 @@ function Navbar() {
     >
       <Container size="lg" sx={{ height: "100%" }}>
         <Flex justify="space-between" align="center" sx={{ height: "100%" }}>
-          <Link href="/">
-            <Image src={logoImage} alt="logo" />
-          </Link>
+          <Flex gap={36}>
+            <Link href="/">
+              <Image src={logoImage} alt="logo" />
+            </Link>
 
-          <Flex>
             <Flex gap={40} sx={{ marginRight: 70 }}>
               <Text fw={600} sx={{ fontSize: 13 }} color="white">
                 개인
@@ -30,15 +33,30 @@ function Navbar() {
                 기업
               </Text>
               <Text fw={600} sx={{ fontSize: 13 }} color="white">
-                서비스 소개
+                고객센터
               </Text>
             </Flex>
+          </Flex>
+          {loggedIn && data ? (
+            <Flex gap={50}>
+              <Link href="/mypage">
+                <Text fw={600} sx={{ fontSize: 13 }} color="white">
+                  {data.groupName}
+                </Text>
+              </Link>
+              <UnstyledButton onClick={logout}>
+                <Text fw={600} sx={{ fontSize: 13 }} color="white">
+                  로그아웃
+                </Text>
+              </UnstyledButton>
+            </Flex>
+          ) : (
             <Link href="/login">
               <Text fw={600} sx={{ fontSize: 13 }} color="white">
                 로그인
               </Text>
             </Link>
-          </Flex>
+          )}
         </Flex>
       </Container>
     </Box>

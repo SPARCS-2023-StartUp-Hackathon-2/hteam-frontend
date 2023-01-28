@@ -66,6 +66,7 @@ function FormSectionEditor({ dataId, order, type, ...props }: Props) {
                 color: theme.colors.gray[8],
                 lineHeight: "38px",
                 fontWeight: "bold",
+                padding: 0,
                 paddingRight: "32px",
               },
             })}
