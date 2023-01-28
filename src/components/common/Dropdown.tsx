@@ -32,11 +32,15 @@ function Dropdown({ kind = 'default', ...props }: Props) {
           height: 'auto',
           lineHeight: '100%',
           fontSize: '15px',
+          border: `1px solid ${theme.colors.gray[1]}`,
         },
         rightSection: { pointerEvents: 'none' },
         dropdown: {
           // dropdown 아이템들을 포함하는 container
           // TODO: 이거 간격 7px 로 조정하기
+        },
+        label: {
+          marginBottom: 16,
         },
       })}
       {...props}
