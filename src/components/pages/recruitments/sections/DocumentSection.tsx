@@ -3,7 +3,7 @@ import TwoPeopleIcon from "components/common/icons/TwoPeopleIcon";
 import FormSectionBlock from "components/pages/forms/FormSectionBlock";
 import { MOCKUP_QUESTIONS } from "mockups/questions";
 import React from "react";
-import CopyButtonIcon from "../../../common/icons/CopyButtonIcon";
+import CopyButtonIcon from "components/common/icons/CopyButtonIcon";
 import MyButton from "components/common/Button";
 
 function DocumentSection() {
