@@ -10,7 +10,9 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconArrowLeft } from "@tabler/icons-react";
+import { axiosClient } from "lib/axios";
 import Link from "next/link";
+import Router from "next/router";
 
 interface FormInput {
   username: string;
@@ -35,8 +37,15 @@ function RegisterPage() {
     },
   });
 
-  const handleSubmit = (values: FormInput) => {
-    console.log(values);
+  const handleSubmit = async (values: FormInput) => {
+    try {
+      const { data } = await axiosClient.post("/users/signup", values);
+      console.log(data);
+
+      Router.push("/login");
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -88,19 +97,19 @@ function RegisterPage() {
                   label="호스트"
                   placeholder="SMTP 호스트 주소를 적어주세요."
                   required
-                  {...form.getInputProps("username")}
+                  {...form.getInputProps("smtpHost")}
                 />
                 <TextInput
                   label="이메일"
                   placeholder="SMTP 이메일 주소를 적어주세요."
                   required
-                  {...form.getInputProps("username")}
+                  {...form.getInputProps("smtpEmail")}
                 />
                 <TextInput
                   label="비밀번호"
                   placeholder="SMTP 비밀번호를 적어주세요."
                   required
-                  {...form.getInputProps("username")}
+                  {...form.getInputProps("smtpPassword")}
                 />
               </Flex>
             </Flex>

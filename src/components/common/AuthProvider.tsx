@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function AuthProvider({ children }: Props) {
-  const [token, setToken] = useLocalStorage<string | undefined>({
+  const [token, setToken, removeToken] = useLocalStorage<string | undefined>({
     key: "jwt",
     defaultValue: undefined,
   });
@@ -35,9 +35,9 @@ export function AuthProvider({ children }: Props) {
   );
 
   const logout = useCallback(() => {
-    setToken(undefined);
+    removeToken();
     window.location.reload();
-  }, [setToken]);
+  }, [removeToken]);
 
   const axiosAuthHeader = useMemo<AxiosAuthHeader | undefined>(() => {
     if (token) {

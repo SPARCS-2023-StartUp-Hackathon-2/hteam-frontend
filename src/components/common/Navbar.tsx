@@ -1,9 +1,12 @@
-import { Box, Container, Flex, Text } from "@mantine/core";
+import { Box, Container, Flex, Text, UnstyledButton } from "@mantine/core";
+import useMe from "hooks/useMe";
 import Image from "next/image";
 import Link from "next/link";
 import logoImage from "public/logo.svg";
 
 function Navbar() {
+  const { data, loggedIn, logout } = useMe();
+
   return (
     <Box
       component="nav"
@@ -34,11 +37,26 @@ function Navbar() {
               </Text>
             </Flex>
           </Flex>
-          <Link href="/login">
-            <Text fw={600} sx={{ fontSize: 13 }} color="white">
-              로그인
-            </Text>
-          </Link>
+          {loggedIn && data ? (
+            <Flex gap={50}>
+              <Link href="/mypage">
+                <Text fw={600} sx={{ fontSize: 13 }} color="white">
+                  {data.groupName}
+                </Text>
+              </Link>
+              <UnstyledButton onClick={logout}>
+                <Text fw={600} sx={{ fontSize: 13 }} color="white">
+                  로그아웃
+                </Text>
+              </UnstyledButton>
+            </Flex>
+          ) : (
+            <Link href="/login">
+              <Text fw={600} sx={{ fontSize: 13 }} color="white">
+                로그인
+              </Text>
+            </Link>
+          )}
         </Flex>
       </Container>
     </Box>

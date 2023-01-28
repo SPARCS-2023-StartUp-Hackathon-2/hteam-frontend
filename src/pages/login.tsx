@@ -1,8 +1,10 @@
 import { Box, Button, Flex, TextInput, Title, useMantineTheme } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconArrowLeft } from "@tabler/icons-react";
+import { useAuth } from "components/common/AuthProvider";
 import { axiosClient } from "lib/axios";
 import Link from "next/link";
+import Router from "next/router";
 
 interface FormInput {
   username: string;
@@ -10,6 +12,8 @@ interface FormInput {
 }
 
 function LoginPage() {
+  const { login } = useAuth();
+
   const theme = useMantineTheme();
 
   const form = useForm<FormInput>({
@@ -20,8 +24,13 @@ function LoginPage() {
   });
 
   const handleSubmit = async (values: FormInput) => {
-    const { data } = await axiosClient.post("/users/signin", values);
-    console.log(data);
+    try {
+      const { data } = await axiosClient.post("/users/signin", values);
+      login(data);
+      Router.push("/");
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
