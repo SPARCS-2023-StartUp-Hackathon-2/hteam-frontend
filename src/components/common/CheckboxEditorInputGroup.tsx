@@ -1,30 +1,74 @@
 import { Checkbox, Flex, Text, UnstyledButton } from "@mantine/core";
 import CheckboxEditorInput from "components/common/CheckboxEditorInput";
 import { useCallback, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { formSectionListState, selectedFormSectionState } from "recoil/formEditor";
 
 interface InputData {
   id: number;
+  data: string;
 }
 
 function CheckboxEditorInputGroup() {
-  const [inputData, setInputData] = useState<InputData[]>([{ id: Date.now() }]);
+  const [formSectionList, setFormSectionList] = useRecoilState(formSectionListState);
+  const selectedFormSection = useRecoilValue(selectedFormSectionState);
 
   const handleAddButtonClick = useCallback(() => {
-    setInputData((p) => [...p, { id: Date.now() }]);
-  }, []);
+    const newData: InputData = { id: Date.now(), data: "" };
+    const newInputData = [...selectedFormSection!.content, newData];
+    setFormSectionList((list) => {
+      const newSectionInfo = { ...selectedFormSection! };
+      newSectionInfo.content = [...newInputData];
+      const point = list.findIndex((item) => item.id === newSectionInfo.id);
+      return [...list.slice(0, point), newSectionInfo, ...list.slice(point + 1, list.length)];
+    });
+  }, [selectedFormSection, setFormSectionList]);
 
-  const handleDeleteButtonClick = useCallback((dataId: number) => {
-    setInputData((p) => p.filter((d) => d.id !== dataId));
-  }, []);
+  const handleDeleteButtonClick = useCallback(
+    (dataId: number) => {
+      setFormSectionList((list) => {
+        const newSectionInfo = { ...selectedFormSection! };
+        const newContent = selectedFormSection!.content.filter(
+          (item: InputData) => item.id !== dataId
+        );
+        newSectionInfo.content = newContent;
+        const point = list.findIndex((item) => item.id === newSectionInfo.id);
+        return [...list.slice(0, point), newSectionInfo, ...list.slice(point + 1, list.length)];
+      });
+    },
+    [selectedFormSection, setFormSectionList]
+  );
+
+  if (!selectedFormSection) return null;
 
   return (
     <Flex gap={20} direction="column">
-      {inputData.map((data) => (
+      {selectedFormSection.content.map((data: InputData) => (
         <CheckboxEditorInput
           key={data.id}
           dataId={data.id}
           onClickDeleteButton={handleDeleteButtonClick}
-          showDeleteButton={inputData.length !== 1}
+          showDeleteButton={selectedFormSection.content.length !== 1}
+          value={data.data}
+          onChange={(e) =>
+            setFormSectionList((list) => {
+              const newSectionInfo = { ...selectedFormSection };
+              const content = [...newSectionInfo.content] as InputData[];
+              const contentPoint = content.findIndex((item) => item.id === data.id);
+              const newContent = [
+                ...content.slice(0, contentPoint),
+                { id: data.id, data: e.target.value },
+                ...content.slice(contentPoint + 1, content.length),
+              ];
+              newSectionInfo.content = newContent;
+              const point = list.findIndex((item) => item.id === newSectionInfo.id);
+              return [
+                ...list.slice(0, point),
+                newSectionInfo,
+                ...list.slice(point + 1, list.length),
+              ];
+            })
+          }
         />
       ))}
       <UnstyledButton onClick={handleAddButtonClick}>

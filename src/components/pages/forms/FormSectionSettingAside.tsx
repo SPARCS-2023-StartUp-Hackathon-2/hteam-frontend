@@ -60,12 +60,28 @@ function FormSectionSettingAside() {
             { value: "dropdown", label: "드롭다운" },
           ]}
           value={selectedFormSection.type}
-          onChange={(value) =>
+          onChange={(value: FormSectionType) =>
             setFormSectionList((list) => {
               if (!value) return list;
 
               const newSectionInfo = { ...selectedFormSection };
-              newSectionInfo.type = value as FormSectionType;
+              newSectionInfo.type = value;
+
+              switch (value) {
+                case "shortText":
+                case "longText":
+                  newSectionInfo.content = "";
+                  break;
+                case "radio":
+                case "checkbox":
+                case "dropdown":
+                  newSectionInfo.content = [
+                    {
+                      id: Date.now(),
+                      data: "",
+                    },
+                  ];
+              }
               const point = list.findIndex((item) => item.id === newSectionInfo.id);
               return [
                 ...list.slice(0, point),
