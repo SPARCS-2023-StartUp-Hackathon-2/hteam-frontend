@@ -2,6 +2,7 @@ import { Badge, Tabs, Box, Button, Flex, Center } from "@mantine/core";
 import PersonCard from "components/common/PersonCard";
 import { MOCKUP_USERS } from "mockups/users";
 import React from "react";
+import NextStepIcon from "../../../common/icons/NextStepIcon";
 
 function ApplicantsSection() {
   return (
@@ -11,9 +12,17 @@ function ApplicantsSection() {
         padding: "22px 29px",
         border: `1px solid ${theme.colors.gray[1]}`,
         borderRadius: theme.radius.sm,
-        width: 376,
+        position: "relative",
+        flex: 1,
       })}
     >
+      <NextStepIcon
+        style={{
+          position: "absolute",
+          top: -145,
+          right: -34,
+        }}
+      />
       <Tabs
         defaultValue="chat"
         styles={{

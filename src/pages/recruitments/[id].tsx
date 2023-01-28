@@ -1,13 +1,15 @@
-import { Container, Flex, Text, Button } from "@mantine/core";
+import { Container, Flex, Text, Button, Box, Center } from "@mantine/core";
 
 import ArrowLeftIcon from "components/common/icons/ArrowLeftIcon";
 import CloseIcon from "components/common/icons/CloseIcon";
 import NextStepDownwardIcon from "components/common/icons/NextStepDownwardIcon";
+import RecruitmentProcessGraph from "components/common/RecruitmentProcessGraph";
 import ApplicantsSection from "components/pages/admin/sections/ApplicantsSection";
 import DocumentSection from "components/pages/admin/sections/DocumentSection";
 import InterviewSection from "components/pages/admin/sections/InterviewSection";
 
 import React from "react";
+import { RecruitmentState } from "types/api";
 
 function RecruitmentsDetailPage() {
   return (
@@ -60,6 +62,22 @@ function RecruitmentsDetailPage() {
           <Text sx={{ lineHeight: 1, marginRight: 6 }}>삭제하기</Text> <CloseIcon />
         </Button>
       </Flex>
+
+      <Flex
+        sx={(theme) => ({
+          backgroundColor: theme.white,
+          padding: "60px 29px",
+          border: `1px solid ${theme.colors.gray[1]}`,
+          borderRadius: theme.radius.sm,
+          marginBottom: 43,
+          width: "100%",
+        })}
+        align="center"
+        justify="center"
+      >
+        <RecruitmentProcessGraph currentState="INTERVIEW" variant="big" />
+      </Flex>
+
       <Flex>
         <Flex direction="column" gap="36px" align="center">
           <DocumentSection />
@@ -76,7 +94,7 @@ function RecruitmentsDetailPage() {
             모집 완료!
           </Text>
         </Flex>
-        <Flex sx={{ marginLeft: 52 }}>
+        <Flex sx={{ marginLeft: 52, flexGrow: 1 }}>
           <ApplicantsSection />
         </Flex>
       </Flex>
