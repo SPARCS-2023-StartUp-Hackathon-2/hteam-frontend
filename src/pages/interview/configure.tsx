@@ -8,7 +8,7 @@ function ConfigurePage() {
   return (
     <Container size="lg">
       <Flex gap="32px" direction="column">
-        <SelectInterviewTypeSection />
+        {/* <SelectInterviewTypeSection /> */}
         <InputInterviewInfoSection />
         <InputInterviewScheduleSection />
       </Flex>
