@@ -58,6 +58,7 @@ function RegisterPage() {
               <TextInput
                 label="아이디"
                 placeholder="아이디를 입력해주세요."
+                required
                 sx={{ flex: 1 }}
                 {...form.getInputProps("username")}
               />
@@ -65,6 +66,7 @@ function RegisterPage() {
                 label="비밀번호"
                 type="password"
                 placeholder="비밀번호를 입력해주세요."
+                required
                 sx={{ flex: 1 }}
                 {...form.getInputProps("password")}
               />
@@ -72,6 +74,7 @@ function RegisterPage() {
             <TextInput
               label="단체명"
               placeholder="ex) 대한대학교 민국동아리, 한국 컴퍼니 등..."
+              required
               {...form.getInputProps("groupName")}
             />
             <Flex gap={48} align="center">
@@ -84,23 +87,30 @@ function RegisterPage() {
                 <TextInput
                   label="호스트"
                   placeholder="SMTP 호스트 주소를 적어주세요."
+                  required
                   {...form.getInputProps("username")}
                 />
                 <TextInput
                   label="이메일"
                   placeholder="SMTP 이메일 주소를 적어주세요."
+                  required
                   {...form.getInputProps("username")}
                 />
                 <TextInput
                   label="비밀번호"
                   placeholder="SMTP 비밀번호를 적어주세요."
+                  required
                   {...form.getInputProps("username")}
                 />
               </Flex>
             </Flex>
           </Flex>
 
-          <Button type="submit" sx={{ display: "block", margin: "0 auto" }}>
+          <Button
+            type="submit"
+            color="primary.2"
+            sx={{ display: "block", margin: "0 auto", width: 162, borderRadius: "999px" }}
+          >
             회원가입
           </Button>
         </form>

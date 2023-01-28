@@ -70,11 +70,20 @@ function LoginPage() {
               {...form.getInputProps("password")}
             />
 
-            <Button type="submit" sx={{ marginBottom: 12, width: 162, borderRadius: "999px" }}>
+            <Button
+              type="submit"
+              color="primary.2"
+              sx={{ marginBottom: 12, width: 162, borderRadius: "999px" }}
+            >
               로그인
             </Button>
             <Link href="/register" passHref legacyBehavior>
-              <Button component="a" variant="outline" sx={{ width: 162, borderRadius: "999px" }}>
+              <Button
+                component="a"
+                variant="outline"
+                color="gray.2"
+                sx={(theme) => ({ width: 162, borderRadius: "999px", color: theme.colors.gray[9] })}
+              >
                 회원가입
               </Button>
             </Link>
