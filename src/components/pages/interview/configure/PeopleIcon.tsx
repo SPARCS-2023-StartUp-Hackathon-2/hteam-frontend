@@ -1,22 +1,23 @@
-import { Flex } from '@mantine/core';
-import PersonOutlineIcon from 'components/common/icons/PersonOutlineIcon';
-import React from 'react';
-import PersonFilledIcon from '../../../common/icons/PersonFilledIcon';
+import { Flex } from "@mantine/core";
+import PersonOutlineIcon from "components/common/icons/PersonOutlineIcon";
+import React from "react";
+import PersonFilledIcon from "../../../common/icons/PersonFilledIcon";
 
 interface Props {
   interviewee: string; // 면접 대상자 명수
   interviewer: string; // 면접관 명수
+  kind?: "default" | "wide";
 }
 
-function PeopleIcon({ interviewee, interviewer }: Props) {
-  if (interviewer === '1' && interviewee === '1') {
+function PeopleIcon({ interviewee, interviewer, kind = "default" }: Props) {
+  if (interviewer === "1" && interviewee === "1") {
     return (
       <Flex
         gap="8px"
         direction="row"
         align="center"
         justify="space-between"
-        sx={{ width: '30%', marginBottom: 13 }}
+        sx={{ width: kind === "wide" ? 100 : "30%", marginBottom: 13 }}
       >
         <Flex gap="8px" direction="row" align="center">
           <PersonFilledIcon />
@@ -27,14 +28,14 @@ function PeopleIcon({ interviewee, interviewer }: Props) {
       </Flex>
     );
   }
-  if (interviewer === '1' && interviewee === 'n') {
+  if (interviewer === "1" && interviewee === "n") {
     return (
       <Flex
         gap="8px"
         direction="row"
         align="center"
         justify="space-between"
-        sx={{ width: '80%', marginBottom: 13 }}
+        sx={{ width: kind === "wide" ? 100 : "80%", marginBottom: 13 }}
       >
         <Flex gap="8px" direction="row" align="center">
           <PersonFilledIcon />
@@ -47,14 +48,14 @@ function PeopleIcon({ interviewee, interviewer }: Props) {
       </Flex>
     );
   }
-  if (interviewer === 'n' && interviewee === '1') {
+  if (interviewer === "n" && interviewee === "1") {
     return (
       <Flex
         gap="8px"
         direction="row"
         align="center"
         justify="space-between"
-        sx={{ width: '80%', marginBottom: 13 }}
+        sx={{ width: kind === "wide" ? 100 : "80%", marginBottom: 13 }}
       >
         <Flex gap="8px" direction="row" align="center">
           <PersonFilledIcon />
@@ -67,14 +68,14 @@ function PeopleIcon({ interviewee, interviewer }: Props) {
       </Flex>
     );
   }
-  if (interviewer === 'n' && interviewee === 'n') {
+  if (interviewer === "n" && interviewee === "n") {
     return (
       <Flex
         gap="8px"
         direction="row"
         align="center"
         justify="space-between"
-        sx={{ width: '80%', marginBottom: 13 }}
+        sx={{ width: kind === "wide" ? 100 : "80%", marginBottom: 13 }}
       >
         <Flex gap="8px" direction="row" align="center">
           <PersonFilledIcon />
