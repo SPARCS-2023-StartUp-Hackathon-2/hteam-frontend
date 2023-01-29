@@ -1,4 +1,5 @@
 import { Badge, Tabs, Box, Button, Flex, Center } from "@mantine/core";
+import PreviousStepIcon from "components/common/icons/PreviousStepIcon";
 import PersonCard from "components/common/PersonCard";
 import useApplicants from "hooks/useApplicants";
 import { MOCKUP_USERS } from "mockups/users";
@@ -19,13 +20,6 @@ function ApplicantsSection({ rid }: { rid: string }) {
         flex: 1,
       })}
     >
-      <NextStepIcon
-        style={{
-          position: "absolute",
-          top: -145,
-          right: -34,
-        }}
-      />
       <Tabs
         defaultValue="chat"
         styles={{
