@@ -52,5 +52,6 @@ export interface Applicant {
   phoneNumber: string;
   submittedAt: string;
   formState: ApplicantState;
+  formContent: FormContent["content"];
   interviewState: ApplicantState;
 }
