@@ -5,9 +5,11 @@ import CopyButtonIcon from "components/common/icons/CopyButtonIcon";
 import InterviewTypeCard from "components/pages/interview/configure/InterviewTypeCard";
 import useRecruitment from "hooks/useRecruitment";
 import Link from "next/link";
+import { getKoreanInterviewByKorean } from "utils/getDBInterviewByKorean";
 
 function InterviewSection({ rid }: { rid: string }) {
   const { data, error, isLoading, mutate } = useRecruitment(rid);
+  console.log(data);
   return (
     <Box
       sx={(theme) => ({
@@ -41,7 +43,7 @@ function InterviewSection({ rid }: { rid: string }) {
                 marginBottom: 3,
               })}
             >
-              {data?.interviewType}
+              {getKoreanInterviewByKorean(data?.interviewType)}
             </Text>
             <Text
               c="gray.8"
