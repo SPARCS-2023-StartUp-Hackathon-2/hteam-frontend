@@ -12,6 +12,7 @@ import { axiosClient } from "lib/axios";
 import { useRouter } from "next/router";
 import { useAuth } from "components/common/AuthProvider";
 import ShareModal from "components/pages/forms/ShareModal";
+import useRecruitment from "hooks/useRecruitment";
 
 function FormSectionSettingAside() {
   const { axiosAuthHeader } = useAuth();
@@ -26,11 +27,20 @@ function FormSectionSettingAside() {
   const rid = router.query.rid as string;
   const uuid = router.query.uuid as string;
 
+  const { data: recruitmentData } = useRecruitment(rid);
+
   const handleClickCompleteButton = useCallback(async () => {
     setLoading(true);
     try {
-      const body: { content: { data: FormSectionItem[] } } = {
+      if (!recruitmentData) {
+        throw new Error("recruitment data가 없습니다.");
+      }
+
+      const body: { content: { metadata: { title: string }; data: FormSectionItem[] } } = {
         content: {
+          metadata: {
+            title: recruitmentData.name,
+          },
           data: [
             {
               id: 0,
@@ -58,7 +68,7 @@ function FormSectionSettingAside() {
     } finally {
       setLoading(false);
     }
-  }, [axiosAuthHeader, basicFormSection, formSectionList, rid]);
+  }, [axiosAuthHeader, basicFormSection, recruitmentData, formSectionList, rid]);
 
   return (
     <>
@@ -200,7 +210,13 @@ function FormSectionSettingAside() {
         </Flex>
       </Flex>
 
-      <ShareModal opened={showModal} onClose={() => setShowModal(false)} rid={rid} uuid={uuid} />
+      <ShareModal
+        opened={showModal}
+        onClose={() => setShowModal(false)}
+        title={recruitmentData?.name}
+        rid={rid}
+        uuid={uuid}
+      />
     </>
   );
 }

@@ -33,6 +33,9 @@ export interface Question
 
 export interface FormContent {
   content: {
+    metadata: {
+      title: string;
+    };
     data: FormSectionItem[];
   };
 }

@@ -1,4 +1,4 @@
-import { Button, Container, Flex, Modal } from "@mantine/core";
+import { Button, Container, Flex, Modal, Text } from "@mantine/core";
 import FormSection from "components/pages/forms/FormSection";
 import BasicFormSectionEditor from "components/pages/forms/BasicFormSectionEditor";
 import useApplicantForm from "hooks/useApplicantForm";
@@ -8,6 +8,7 @@ import { basicFormSectionState, formSectionListState } from "recoil/formEditor";
 import { FormEvent, useEffect, useState } from "react";
 import { BasicFormSectionItem, FormSectionItem } from "types/form";
 import { axiosClient } from "lib/axios";
+import ApplicationCompleteModal from "components/pages/forms/ApplicationCompleteModal";
 
 function FormViewPage() {
   const router = useRouter();
@@ -22,10 +23,8 @@ function FormViewPage() {
   useEffect(() => {
     if (!data) return;
 
-    setFormSectionList(data.map((item) => ({ ...item, content: "" })));
+    setFormSectionList(data.data.map((item) => ({ ...item, content: "" })));
   }, [data, setFormSectionList]);
-
-  console.log(data);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,21 +49,28 @@ function FormViewPage() {
 
   if (!uuid || isLoading || !data) return null;
   return (
-    <Container size="xs" sx={{ paddingTop: 80, paddingBottom: 80 }}>
+    <Container size="xs" sx={{ paddingTop: 100, paddingBottom: 80 }}>
+      <Text fw={600} sx={{ fontSize: 32, textAlign: "center", marginBottom: 80 }}>
+        {data.metadata.title || "구버전"}
+      </Text>
       <form onSubmit={handleSubmit}>
-        <Flex direction="column" gap={80}>
+        <Flex direction="column" gap={130}>
           <BasicFormSectionEditor />
-          {data.slice(1, data.length).map((item) => (
+          {data.data.slice(1, data.data.length).map((item) => (
             <FormSection key={item.id} formSection={item} />
           ))}
 
-          <Button type="submit" color="primary.2" sx={{ borderRadius: 999 }}>
+          <Button type="submit" color="gray.6" sx={{ width: 180, margin: "0 auto" }}>
             제출하기
           </Button>
         </Flex>
       </form>
 
-      <Modal opened={showModal} onClose={() => setShowModal(false)} title="제출 완료!" />
+      <ApplicationCompleteModal
+        opened={showModal}
+        onClose={() => setShowModal(false)}
+        title={data.metadata.title}
+      />
     </Container>
   );
 }

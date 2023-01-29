@@ -9,7 +9,7 @@ function useApplicantForm(uuid?: string) {
   );
 
   return {
-    data: data?.content.data,
+    data: data?.content,
     error,
     isLoading,
     mutate,

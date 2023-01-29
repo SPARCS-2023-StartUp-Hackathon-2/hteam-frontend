@@ -136,12 +136,7 @@ function FormSection({ formSection, ...props }: Props) {
                 }
               >
                 {formSection.content.map((item: any) => (
-                  <Checkbox
-                    key={item.id}
-                    value={item.data}
-                    label={item.data}
-                    required={formSection.required}
-                  />
+                  <Checkbox key={item.id} value={item.data} label={item.data} />
                 ))}
               </Checkbox.Group>
             )}
