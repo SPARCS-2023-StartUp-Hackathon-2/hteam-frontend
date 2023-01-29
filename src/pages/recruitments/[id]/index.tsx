@@ -16,14 +16,18 @@ import InterviewApplicantsSection from "components/pages/recruitments/sections/I
 import FinalStageSection from "components/pages/recruitments/sections/FinalStageSection";
 import NextStepIcon from "components/common/icons/NextStepIcon";
 import PreviousStepIcon from "components/common/icons/PreviousStepIcon";
+import { axiosClient } from "lib/axios";
+import { useAuth } from "components/common/AuthProvider";
 
 function RecruitmentsDetailPage() {
+  const { axiosAuthHeader } = useAuth();
   const router = useRouter();
   const id = router.query.id as string | undefined;
-  const { data } = useRecruitment(id as string);
+  const { data: recruitmentData, mutate } = useRecruitment(id as string);
   const [stage, setStage] = useState(1);
 
   if (!id) return null;
+  if (!recruitmentData) return null;
   return (
     <Container size="lg" sx={{ paddingTop: 45, paddingBottom: 45 }}>
       <BasicInfoSection rid={id} />
@@ -54,8 +58,20 @@ function RecruitmentsDetailPage() {
         )}
         {stage < 4 && (
           <NextStepIcon
-            onClick={() => {
+            onClick={async () => {
               setStage(stage + 1);
+              try {
+                if (recruitmentData?.state === "PREPARING") {
+                  await axiosClient.patch(
+                    `/recruitments/${id}/state`,
+                    { state: "FORM" },
+                    axiosAuthHeader
+                  );
+                  mutate();
+                }
+              } catch (e) {
+                console.error(e);
+              }
             }}
             style={{
               position: "absolute",
@@ -65,7 +81,10 @@ function RecruitmentsDetailPage() {
           />
         )}
 
-        <RecruitmentProcessGraph currentState={data?.state ?? "PREPARING"} variant="big" />
+        <RecruitmentProcessGraph
+          currentState={recruitmentData?.state ?? "PREPARING"}
+          variant="big"
+        />
       </Flex>
       {stage === 1 && (
         <Flex justify="space-between">
@@ -89,7 +108,16 @@ function RecruitmentsDetailPage() {
           </Flex>
         </Flex>
       )}
-      {stage === 2 && <FormApplicantsSection rid={id} />}
+      {stage === 2 && (
+        <FormApplicantsSection
+          rid={id}
+          currentState={recruitmentData.state}
+          onNextStep={() => {
+            mutate();
+            setStage(3);
+          }}
+        />
+      )}
       {stage === 3 && <InterviewApplicantsSection />}
       {stage === 4 && <FinalStageSection />}
     </Container>
