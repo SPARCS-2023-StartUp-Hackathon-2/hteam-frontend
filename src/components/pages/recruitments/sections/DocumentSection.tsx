@@ -1,17 +1,19 @@
 import { Box, Button, Center, Flex, Text } from "@mantine/core";
 import TwoPeopleIcon from "components/common/icons/TwoPeopleIcon";
 import FormSectionBlock from "components/pages/forms/FormSectionBlock";
-import { MOCKUP_QUESTIONS } from "mockups/questions";
 import React from "react";
-import CopyButtonIcon from "components/common/icons/CopyButtonIcon";
 import MyButton from "components/common/Button";
 import useFormInfo from "hooks/useFormInfo";
 import useRecruitment from "hooks/useRecruitment";
+import Link from "next/link";
+import ShareButton from "components/common/ShareButton";
 
 function DocumentSection({ rid }: { rid: string }) {
-  const { data, error, isLoading } = useFormInfo(rid);
+  const { data: formData } = useFormInfo(rid);
   const { data: recruitmentData } = useRecruitment(rid);
-  console.log(data);
+
+  if (!recruitmentData) return null;
+
   return (
     <Box
       sx={(theme) => ({
@@ -47,37 +49,17 @@ function DocumentSection({ rid }: { rid: string }) {
           </Flex>
         )}
       </Flex>
-      {recruitmentData?.state !== "PREPARING" ? (
+      {formData ? (
         <>
           <Flex direction="column" gap="16px" sx={{ marginBottom: 26 }}>
-            {data?.content?.data?.map((question: any, index: number) => (
+            {formData?.content?.data?.map((question: any, index: number) => (
               <FormSectionBlock key={index} dataId={index} {...question} />
             ))}
           </Flex>
           <Flex justify="space-between">
-            <Button
-              styles={(theme) => ({
-                root: {
-                  backgroundColor: theme.white,
-                  padding: "10px 30px",
-                  height: "auto",
-
-                  fontSize: "15px",
-                  fontWeight: 400,
-                  border: `1px solid ${theme.colors.gray[1]}`,
-                  color: theme.black,
-                  borderRadius: theme.radius.sm,
-                  "&:hover": {
-                    backgroundColor: theme.colors.gray[1],
-                  },
-                },
-                inner: {
-                  height: "auto",
-                },
-              })}
-            >
-              <Text sx={{ lineHeight: 1, marginRight: 6 }}>설문 링크 공유</Text> <CopyButtonIcon />
-            </Button>
+            <ShareButton
+              targetLink={`${process.env.NEXT_PUBLIC_HOMEPAGE_URL}/forms/${recruitmentData.uuid}`}
+            />
             <MyButton>수정하기</MyButton>
           </Flex>
         </>
@@ -90,8 +72,10 @@ function DocumentSection({ rid }: { rid: string }) {
               align="center"
               sx={{ marginBottom: 10, marginTop: 20 }}
             >
-              <Text>지원 형식이 없습니다. </Text>
-              <MyButton>지원 서류 형식 만들기</MyButton>
+              <Text>지원 형식이 없습니다.</Text>
+              <Link href={`/forms/write?rid=${rid}`}>
+                <MyButton>지원 서류 형식 만들기</MyButton>
+              </Link>
             </Flex>
           </Center>
         </>

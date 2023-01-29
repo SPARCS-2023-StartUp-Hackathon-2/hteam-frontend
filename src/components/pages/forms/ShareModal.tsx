@@ -19,7 +19,7 @@ function ShareModal({ title, rid, uuid, ...props }: Props) {
           src={checkImage}
           alt="check"
           width={56}
-          style={{ marginTop: 74, marginBottom: 40 }}
+          style={{ marginTop: 54, marginBottom: 40 }}
         />
         {title && <Text>&lt; {title} &gt;</Text>}
         <Text fw={600} sx={{ fontSize: 24, marginBottom: 35 }}>
@@ -37,7 +37,7 @@ function ShareModal({ title, rid, uuid, ...props }: Props) {
               display: "block",
               margin: "0 auto",
               borderRadius: 999,
-              marginBottom: 170,
+              marginBottom: 150,
               marginTop: 24,
             }}
           >
