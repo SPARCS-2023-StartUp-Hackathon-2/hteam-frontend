@@ -60,7 +60,9 @@ function DocumentSection({ rid }: { rid: string }) {
             <ShareButton
               targetLink={`${process.env.NEXT_PUBLIC_HOMEPAGE_URL}/forms/${recruitmentData.uuid}`}
             />
-            <MyButton>수정하기</MyButton>
+            <Link href={`/forms/write?rid=${rid}&modify=true`}>
+              <MyButton>수정하기</MyButton>
+            </Link>
           </Flex>
         </>
       ) : (
