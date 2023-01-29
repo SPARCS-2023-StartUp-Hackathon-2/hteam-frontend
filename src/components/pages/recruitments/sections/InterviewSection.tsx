@@ -1,13 +1,40 @@
 import { Box, Button, Center, Flex, NumberInput, Text } from "@mantine/core";
-import React from "react";
+import React, { useCallback } from "react";
 import MyButton from "components/common/Button";
 import CopyButtonIcon from "components/common/icons/CopyButtonIcon";
 import InterviewTypeCard from "components/pages/interview/configure/InterviewTypeCard";
 import useRecruitment from "hooks/useRecruitment";
 import Link from "next/link";
 import { getKoreanInterviewByKorean } from "utils/getDBInterviewByKorean";
+import { useAuth } from "components/common/AuthProvider";
+import { useRouter } from "next/router";
+import { axiosClient } from "lib/axios";
 
 function InterviewSection({ rid }: { rid: string }) {
+  const { axiosAuthHeader } = useAuth();
+
+  const { data: recruitmentData } = useRecruitment(rid);
+
+  const handleSendEmailToInterviewer = useCallback(async () => {
+    // setLoading(true);
+    try {
+      // if (!recruitmentData) {
+      //   throw new Error("recruitment data가 없습니다.");
+      // }
+
+      if (!rid) {
+        throw new Error("rid가 없습니다.");
+      }
+
+      await axiosClient.post(`/email/interviewers?recruitmentId=${rid} `, {}, axiosAuthHeader);
+      // setLoading(false);
+      // setShowModal(true);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      // setLoading(false);
+    }
+  }, [axiosAuthHeader, rid]);
   const { data, error, isLoading, mutate } = useRecruitment(rid);
   console.log(data);
   return (
@@ -127,6 +154,7 @@ function InterviewSection({ rid }: { rid: string }) {
                   height: "auto",
                 },
               })}
+              onClick={handleSendEmailToInterviewer}
             >
               <Text sx={{ lineHeight: 1, marginRight: 6 }}>일정 설정 링크 공유</Text>{" "}
               <CopyButtonIcon />
