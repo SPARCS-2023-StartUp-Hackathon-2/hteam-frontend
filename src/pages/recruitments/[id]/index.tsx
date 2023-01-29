@@ -27,6 +27,7 @@ function RecruitmentsDetailPage() {
   const [stage, setStage] = useState(1);
 
   if (!id) return null;
+  if (!recruitmentData) return null;
   return (
     <Container size="lg" sx={{ paddingTop: 45, paddingBottom: 45 }}>
       <BasicInfoSection rid={id} />
@@ -107,7 +108,16 @@ function RecruitmentsDetailPage() {
           </Flex>
         </Flex>
       )}
-      {stage === 2 && <FormApplicantsSection rid={id} />}
+      {stage === 2 && (
+        <FormApplicantsSection
+          rid={id}
+          currentState={recruitmentData.state}
+          onNextStep={() => {
+            mutate();
+            setStage(3);
+          }}
+        />
+      )}
       {stage === 3 && <InterviewApplicantsSection />}
       {stage === 4 && <FinalStageSection />}
     </Container>

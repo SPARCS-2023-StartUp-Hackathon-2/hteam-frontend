@@ -6,8 +6,17 @@ import useApplicants from "hooks/useApplicants";
 import { axiosClient } from "lib/axios";
 import Link from "next/link";
 import React, { useCallback, useState } from "react";
+import { RecruitmentState } from "types/api";
 
-function FormApplicantsSection({ rid }: { rid: string }) {
+function FormApplicantsSection({
+  rid,
+  onNextStep,
+  currentState,
+}: {
+  rid: string;
+  onNextStep: () => void;
+  currentState: RecruitmentState;
+}) {
   const { axiosAuthHeader } = useAuth();
   const { data } = useApplicants(rid);
   const [mailLoading, setMailLoading] = useState(false);
@@ -27,6 +36,20 @@ function FormApplicantsSection({ rid }: { rid: string }) {
       setMailLoading(false);
     }
   }, [rid, axiosAuthHeader]);
+
+  const handleClickFinishButton = useCallback(async () => {
+    if (currentState !== "FORM") return;
+    try {
+      await axiosClient.patch(
+        `/recruitments/${rid}/state`,
+        { state: "INTERVIEW" },
+        axiosAuthHeader
+      );
+      onNextStep();
+    } catch (e) {
+      console.error(e);
+    }
+  }, [rid, axiosAuthHeader, onNextStep, currentState]);
 
   if (data) {
     return (
@@ -91,15 +114,21 @@ function FormApplicantsSection({ rid }: { rid: string }) {
           ))}
         </Flex>
 
-        <Button
-          variant="outline"
-          color="gray.1"
-          sx={(theme) => ({ marginTop: 16, color: theme.colors.gray[9] })}
-          onClick={handleClickEmailButton}
-          loading={mailLoading}
-        >
-          서류 결과 공유
-        </Button>
+        <Flex justify="space-between" sx={{ marginTop: 16 }}>
+          <Button
+            variant="outline"
+            color="gray.1"
+            sx={(theme) => ({ color: theme.colors.gray[9] })}
+            onClick={handleClickEmailButton}
+            loading={mailLoading}
+          >
+            서류 결과 공유
+          </Button>
+
+          <Button color="primary.2" sx={{ borderRadius: 999 }} onClick={handleClickFinishButton}>
+            마감하기
+          </Button>
+        </Flex>
       </Box>
     );
   } else {
