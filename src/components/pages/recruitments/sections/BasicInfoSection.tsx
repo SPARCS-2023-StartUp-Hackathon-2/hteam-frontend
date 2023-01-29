@@ -2,6 +2,7 @@ import { Button, Flex, Text } from "@mantine/core";
 import ArrowLeftIcon from "components/common/icons/ArrowLeftIcon";
 import CloseIcon from "components/common/icons/CloseIcon";
 import useRecruitment from "hooks/useRecruitment";
+import Link from "next/link";
 import { dateObjectToDateString } from "utils/date";
 
 function BasicInfoSection({ rid }: { rid: string }) {
@@ -12,7 +13,9 @@ function BasicInfoSection({ rid }: { rid: string }) {
   return (
     <Flex justify="space-between" sx={{ marginBottom: 20 }}>
       <Flex gap="27px" align="baseline">
-        <ArrowLeftIcon />
+        <Link href="/mypage">
+          <ArrowLeftIcon />
+        </Link>
         <Flex direction="column" align="baseline">
           <Text
             c="gray.8"
