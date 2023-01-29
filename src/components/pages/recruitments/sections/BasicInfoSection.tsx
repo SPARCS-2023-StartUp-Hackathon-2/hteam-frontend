@@ -1,11 +1,15 @@
-import { Button, Flex, Text } from "@mantine/core";
+import { Flex, Text } from "@mantine/core";
 import ArrowLeftIcon from "components/common/icons/ArrowLeftIcon";
-import CloseIcon from "components/common/icons/CloseIcon";
 import useRecruitment from "hooks/useRecruitment";
 import Link from "next/link";
 import { dateObjectToDateString } from "utils/date";
 
-function BasicInfoSection({ rid }: { rid: string }) {
+interface Props {
+  rid: string;
+  backLink?: string;
+}
+
+function BasicInfoSection({ rid, backLink }: Props) {
   const { data, isLoading } = useRecruitment(rid);
 
   if (isLoading) return null;
@@ -13,7 +17,7 @@ function BasicInfoSection({ rid }: { rid: string }) {
   return (
     <Flex justify="space-between" sx={{ marginBottom: 20 }}>
       <Flex gap="27px" align="baseline">
-        <Link href="/mypage">
+        <Link href={backLink || "/mypage"}>
           <ArrowLeftIcon />
         </Link>
         <Flex direction="column" align="baseline">

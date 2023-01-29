@@ -1,12 +1,9 @@
-import { Container, Flex, Text, Button, Box, Center } from "@mantine/core";
+import { Container, Flex, Text } from "@mantine/core";
 
-import ArrowLeftIcon from "components/common/icons/ArrowLeftIcon";
-import CloseIcon from "components/common/icons/CloseIcon";
 import NextStepDownwardIcon from "components/common/icons/NextStepDownwardIcon";
 import RecruitmentProcessGraph from "components/common/RecruitmentProcessGraph";
 
 import React, { useState } from "react";
-import { RecruitmentState } from "types/api";
 import BasicInfoSection from "components/pages/recruitments/sections/BasicInfoSection";
 
 import { useRouter } from "next/router";
