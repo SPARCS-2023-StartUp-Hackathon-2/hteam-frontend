@@ -1,13 +1,33 @@
-import { Box, Button, Flex, Table, Text } from "@mantine/core";
-import Badge from "components/common/Badge";
+import { Box, Button, Flex, Text } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
+import { useAuth } from "components/common/AuthProvider";
 import ApplicantRow from "components/pages/recruitments/ApplicantRow";
 import useApplicants from "hooks/useApplicants";
+import { axiosClient } from "lib/axios";
 import Link from "next/link";
-import React from "react";
-import { Applicant } from "types/api";
+import React, { useCallback, useState } from "react";
 
 function FormApplicantsSection({ rid }: { rid: string }) {
+  const { axiosAuthHeader } = useAuth();
   const { data } = useApplicants(rid);
+  const [mailLoading, setMailLoading] = useState(false);
+
+  const handleClickEmailButton = useCallback(async () => {
+    setMailLoading(true);
+    try {
+      await axiosClient.post(`/email/applicants/form?recruitmentId=${rid}`, {}, axiosAuthHeader);
+      showNotification({
+        title: "메일 전송 완료",
+        message: "메일이 성공적으로 전송되었습니다.",
+        color: "green",
+      });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setMailLoading(false);
+    }
+  }, [rid, axiosAuthHeader]);
+
   if (data) {
     return (
       <Box
@@ -70,6 +90,16 @@ function FormApplicantsSection({ rid }: { rid: string }) {
             />
           ))}
         </Flex>
+
+        <Button
+          variant="outline"
+          color="gray.1"
+          sx={(theme) => ({ marginTop: 16, color: theme.colors.gray[9] })}
+          onClick={handleClickEmailButton}
+          loading={mailLoading}
+        >
+          서류 결과 공유
+        </Button>
       </Box>
     );
   } else {
