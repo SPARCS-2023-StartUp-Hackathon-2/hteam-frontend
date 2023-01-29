@@ -1,3 +1,5 @@
+import { FormSectionItem } from "types/form";
+
 export interface User {
   username: string;
   groupName: string;
@@ -31,6 +33,15 @@ export interface DateGroup {
 
 export interface Question
   extends Omit<ComponentProps<typeof FormSectionBlock>, "dataId" | "selected"> {}
+
+export interface FormContent {
+  content: {
+    metadata: {
+      title: string;
+    };
+    data: FormSectionItem[];
+  };
+}
 
 export interface Applicant {
   id: number;

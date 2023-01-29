@@ -9,12 +9,12 @@ import { FormSectionType } from "types/form";
 interface Props {
   dataId: number;
   order: number;
-  type: FormSectionType | "basic";
+  type: FormSectionType;
   question: string;
   selected?: boolean;
 }
 
-function typeToString(type: FormSectionType | "basic") {
+function typeToString(type: FormSectionType) {
   switch (type) {
     case "shortText":
       return "단답형";
