@@ -1,19 +1,20 @@
-import { Box, Text, Flex } from '@mantine/core';
-import Button from 'components/common/Button';
-import React, { ReactNode } from 'react';
+import { Box, Text, Flex } from "@mantine/core";
+import Button from "components/common/Button";
+import React, { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
   title: string;
   buttonText: string;
+  buttonOnClick?: () => void;
 }
 
-function InterviewInputBox({ children, title, buttonText }: Props) {
+function InterviewInputBox({ children, title, buttonText, buttonOnClick = () => {} }: Props) {
   return (
     <Box
       sx={(theme) => ({
         backgroundColor: theme.white,
-        padding: '32px',
+        padding: "32px",
         border: `1px solid ${theme.colors.gray[1]}`,
         borderRadius: theme.radius.sm,
       })}
@@ -22,14 +23,14 @@ function InterviewInputBox({ children, title, buttonText }: Props) {
         <Text
           c="gray.8"
           sx={(theme) => ({
-            fontsize: '20px',
+            fontsize: "20px",
             fontWeight: 600,
           })}
         >
-          {title}{' '}
+          {title}{" "}
         </Text>
         {children}
-        <Button>{buttonText}</Button>
+        <Button onClick={buttonOnClick}>{buttonText}</Button>
       </Flex>
     </Box>
   );

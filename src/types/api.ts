@@ -8,7 +8,7 @@ export interface User {
 }
 
 export type RecruitmentState = "PREPARING" | "FORM" | "INTERVIEW" | "COMPLETE";
-export type interviewType = "VOICE_CALL" | "VIDEO_CALL" | "FACE_TO_FACE" | "FACE";
+export type interviewType = "VOICE_CALL" | "VIDEO_CALL" | "FACE_TO_FACE" | "ETC";
 export type ApplicantState = "UNDEFINED" | "FAIL" | "PASS";
 
 export interface Recruitment {
