@@ -1,4 +1,5 @@
-import { Badge, Box, Button, Flex, Table, Text } from "@mantine/core";
+import { Box, Button, Flex, Table, Text } from "@mantine/core";
+import Badge from "components/common/Badge";
 import useApplicants from "hooks/useApplicants";
 import React from "react";
 import { Applicant } from "types/api";
@@ -14,11 +15,13 @@ const elements = [
 const getRows = (elements: Applicant[]) =>
   elements.map((element) => (
     <tr key={element.name}>
-      <td>{element.formState}</td>
+      <td>
+        <Badge state={element.formState}></Badge>
+      </td>
       <td>{element.name}</td>
       <td>{element.phoneNumber}</td>
       <td>{element.email}</td>
-      <td>{element.submittedAt.toLocaleDateString("ko-KR")}</td>
+      <td>{new Date(element.submittedAt).toLocaleDateString("ko-KR")}</td>
       <td>
         <Button
           styles={(theme) => ({

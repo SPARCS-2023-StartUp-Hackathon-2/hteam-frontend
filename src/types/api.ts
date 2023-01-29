@@ -50,7 +50,7 @@ export interface Applicant {
   name: string;
   email: string;
   phoneNumber: string;
-  submittedAt: Date;
+  submittedAt: string;
   formState: ApplicantState;
   interviewState: ApplicantState;
 }
