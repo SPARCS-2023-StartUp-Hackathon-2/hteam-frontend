@@ -52,8 +52,10 @@ function ApplicantFormPage() {
         applicant={data}
         decisionButton={
           <Flex gap={16}>
-            <Button onClick={handleClickPassButton}>합격</Button>
-            <Button color="red" onClick={handleClickFailButton}>
+            <Button compact onClick={handleClickPassButton} sx={{ borderRadius: 999 }}>
+              합격
+            </Button>
+            <Button compact color="red" onClick={handleClickFailButton} sx={{ borderRadius: 999 }}>
               불합격
             </Button>
           </Flex>
