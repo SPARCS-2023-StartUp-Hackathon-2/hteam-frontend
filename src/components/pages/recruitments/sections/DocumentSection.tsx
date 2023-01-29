@@ -1,9 +1,7 @@
 import { Box, Button, Center, Flex, Text } from "@mantine/core";
 import TwoPeopleIcon from "components/common/icons/TwoPeopleIcon";
 import FormSectionBlock from "components/pages/forms/FormSectionBlock";
-import { MOCKUP_QUESTIONS } from "mockups/questions";
 import React from "react";
-import CopyButtonIcon from "components/common/icons/CopyButtonIcon";
 import MyButton from "components/common/Button";
 import useFormInfo from "hooks/useFormInfo";
 import useRecruitment from "hooks/useRecruitment";
@@ -74,7 +72,7 @@ function DocumentSection({ rid }: { rid: string }) {
               align="center"
               sx={{ marginBottom: 10, marginTop: 20 }}
             >
-              <Text>지원 형식이 없습니다. </Text>
+              <Text>지원 형식이 없습니다.</Text>
               <Link href={`/forms/write?rid=${rid}`}>
                 <MyButton>지원 서류 형식 만들기</MyButton>
               </Link>
