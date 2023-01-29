@@ -4,6 +4,7 @@ import MyButton from "components/common/Button";
 import CopyButtonIcon from "components/common/icons/CopyButtonIcon";
 import InterviewTypeCard from "components/pages/interview/configure/InterviewTypeCard";
 import useRecruitment from "hooks/useRecruitment";
+import Link from "next/link";
 
 function InterviewSection({ rid }: { rid: string }) {
   const { data, error, isLoading, mutate } = useRecruitment(rid);
@@ -141,7 +142,9 @@ function InterviewSection({ rid }: { rid: string }) {
               sx={{ marginBottom: 10, marginTop: 20 }}
             >
               <Text>지원 형식이 없습니다. </Text>
-              <MyButton>면접 일정 형식 만들기</MyButton>
+              <Link href={`/interview/configure?rid=${rid}`}>
+                <MyButton>면접 일정 형식 만들기</MyButton>
+              </Link>
             </Flex>
           </Center>
         </>

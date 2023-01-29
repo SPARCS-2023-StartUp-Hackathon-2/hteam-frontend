@@ -1,8 +1,9 @@
-import { Container, Flex } from '@mantine/core';
-import InputInterviewInfoSection from 'components/pages/interview/configure/sections/InputInterviewInfoSection';
-import InputInterviewScheduleSection from 'components/pages/interview/configure/sections/InputInterviewScheduleSection';
-import SelectInterviewTypeSection from 'components/pages/interview/configure/sections/SelectInterviewTypeSection';
-import React from 'react';
+import { Container, Flex } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import InputInterviewInfoSection from "components/pages/interview/configure/sections/InputInterviewInfoSection";
+import InputInterviewScheduleSection from "components/pages/interview/configure/sections/InputInterviewScheduleSection";
+import SelectInterviewTypeSection from "components/pages/interview/configure/sections/SelectInterviewTypeSection";
+import React from "react";
 
 function ConfigurePage() {
   return (
