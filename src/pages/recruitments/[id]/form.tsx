@@ -46,7 +46,7 @@ function ApplicantFormPage() {
   if (!data) return null;
   return (
     <Container size="lg" sx={{ paddingTop: 45, paddingBottom: 45 }}>
-      <BasicInfoSection rid={rid} />
+      <BasicInfoSection rid={rid} backLink={`/recruitments/${rid}`} />
 
       <ApplicantRow
         applicant={data}
