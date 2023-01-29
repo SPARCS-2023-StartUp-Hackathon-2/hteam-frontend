@@ -1,4 +1,10 @@
-export type FormSectionType = "shortText" | "longText" | "radio" | "checkbox" | "dropdown";
+export type FormSectionType =
+  | "shortText"
+  | "longText"
+  | "radio"
+  | "checkbox"
+  | "dropdown"
+  | "basic";
 
 export interface BasicFormSectionItem {
   name: string;

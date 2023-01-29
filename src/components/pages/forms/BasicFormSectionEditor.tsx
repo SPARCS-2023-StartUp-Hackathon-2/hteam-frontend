@@ -14,6 +14,7 @@ function BasicFormSectionEditor(props: Props) {
       <BasicInfoInput
         order={1}
         title="이름을 입력해주세요."
+        required
         value={basicFormSection.name}
         onChange={(e) => setBasicFormSection((data) => ({ ...data, name: e.target.value }))}
       />
@@ -21,6 +22,7 @@ function BasicFormSectionEditor(props: Props) {
         type="email"
         order={2}
         title="이메일을 입력해주세요."
+        required
         value={basicFormSection.email}
         onChange={(e) => setBasicFormSection((data) => ({ ...data, email: e.target.value }))}
       />
@@ -28,6 +30,7 @@ function BasicFormSectionEditor(props: Props) {
         type="number"
         order={3}
         title="전화번호를 입력해주세요."
+        required
         placeholder="띄어쓰기 없이 기입해주세요."
         value={basicFormSection.phoneNumber}
         onChange={(e) => setBasicFormSection((data) => ({ ...data, phoneNumber: e.target.value }))}
