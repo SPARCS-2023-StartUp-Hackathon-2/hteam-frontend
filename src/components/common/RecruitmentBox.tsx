@@ -1,6 +1,7 @@
-import { Button, Flex, Text } from "@mantine/core";
+import { Box, Button, Flex, Text } from "@mantine/core";
 import ProcessGraph from "components/common/RecruitmentProcessGraph";
 import Link from "next/link";
+import { RecruitmentState } from "types/api";
 
 interface Props {
   id: number;
@@ -20,6 +21,8 @@ function RecruitmentBox({ id, title, startAt, endAt, state }: Props) {
         width: "100%",
         padding: "36px 42px",
       })}
+      justify="space-between"
+      align="center"
     >
       <Flex direction="column">
         <Flex direction="column" gap={20} sx={{ marginBottom: 27 }}>
@@ -41,8 +44,13 @@ function RecruitmentBox({ id, title, startAt, endAt, state }: Props) {
           </Button>
         </Link>
       </Flex>
-
-      <ProcessGraph currentState="PREPARING" />
+      <Box
+        sx={{
+          marginRight: 40,
+        }}
+      >
+        <ProcessGraph startAt={startAt} endAt={endAt} currentState={state as RecruitmentState} />
+      </Box>
     </Flex>
   );
 }

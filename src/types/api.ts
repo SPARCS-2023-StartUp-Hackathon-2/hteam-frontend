@@ -8,12 +8,18 @@ export interface User {
 }
 
 export type RecruitmentState = "PREPARING" | "FORM" | "INTERVIEW" | "COMPLETE";
+export type interviewType = "VOICE_CALL" | "VIDEO_CALL" | "FACE_TO_FACE" | "FACE";
+export type ApplicantState = "UNDEFINED" | "FAIL" | "PASS";
+
 export interface Recruitment {
   id: number;
   name: string;
-  state: string;
+  state: RecruitmentState;
   startAt: string;
   endAt: string;
+  content: any;
+  interviewType: interviewType;
+  interviewNotice: string | null;
 }
 
 // 하나 날짜
@@ -22,10 +28,7 @@ import FormSectionBlock from "components/pages/forms/FormSectionBlock";
 export interface DateGroup {
   date: string;
 
-  times: {
-    start: string;
-    end: string;
-  }[];
+  times: string[];
 }
 
 export interface Question
@@ -38,4 +41,15 @@ export interface FormContent {
     };
     data: FormSectionItem[];
   };
+}
+
+export interface Applicant {
+  id: number;
+  uuid: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  submittedAt: Date;
+  formState: ApplicantState;
+  interviewState: ApplicantState;
 }
