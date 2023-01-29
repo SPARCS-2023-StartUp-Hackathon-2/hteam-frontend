@@ -13,6 +13,7 @@ export type ApplicantState = "UNDEFINED" | "FAIL" | "PASS";
 
 export interface Recruitment {
   id: number;
+  uuid: string;
   name: string;
   state: RecruitmentState;
   startAt: string;

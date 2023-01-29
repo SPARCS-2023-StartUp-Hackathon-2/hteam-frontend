@@ -25,7 +25,6 @@ function FormSectionSettingAside() {
 
   const router = useRouter();
   const rid = router.query.rid as string;
-  const uuid = router.query.uuid as string;
 
   const { data: recruitmentData } = useRecruitment(rid);
 
@@ -210,13 +209,15 @@ function FormSectionSettingAside() {
         </Flex>
       </Flex>
 
-      <ShareModal
-        opened={showModal}
-        onClose={() => setShowModal(false)}
-        title={recruitmentData?.name}
-        rid={rid}
-        uuid={uuid}
-      />
+      {recruitmentData && (
+        <ShareModal
+          opened={showModal}
+          onClose={() => setShowModal(false)}
+          title={recruitmentData.name}
+          rid={rid}
+          uuid={recruitmentData.uuid}
+        />
+      )}
     </>
   );
 }
